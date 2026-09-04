@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-04T14:34:36.764572+08:00",
-  "generated_compact": "09-04 14:34",
+  "generated_at": "2026-09-04T14:52:30.163974+08:00",
+  "generated_compact": "09-04 14:52",
   "fresh_hours": 24,
-  "total_entries": 862,
+  "total_entries": 867,
   "active_sources": 13,
   "format": "序号-QNAir | 地区 | 运营商",
   "sources": [
@@ -10,46 +10,51 @@
       "name": "cmliu",
       "label": "CM",
       "file": "cmliu.txt",
-      "entries": 36,
+      "entries": 37,
       "active": true,
       "last_updated": "2026-09-04T12:33:00+08:00",
-      "reused_fallback": true
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "cmliu2",
       "label": "CM 2",
       "file": "cmliu2.txt",
-      "entries": 47,
+      "entries": 48,
       "active": true,
       "last_updated": "2026-09-04T13:04:00+08:00",
-      "reused_fallback": true
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "luoli",
       "label": "洛璃",
       "file": "luoli.txt",
-      "entries": 39,
+      "entries": 40,
       "active": true,
       "last_updated": "2026-09-04T10:32:00+08:00",
-      "reused_fallback": true
+      "reused_fallback": true,
+      "rotated": false
     },
     {
       "name": "lzj",
       "label": "辣子鸡",
       "file": "lzj.txt",
-      "entries": 261,
+      "entries": 262,
       "active": true,
       "last_updated": "2026-09-04T12:35:00+08:00",
-      "reused_fallback": true
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "mia",
       "label": "Mia",
       "file": "mia.txt",
-      "entries": 39,
+      "entries": 40,
       "active": true,
       "last_updated": "2026-09-04T12:32:00+08:00",
-      "reused_fallback": true
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "cfyes",
@@ -57,26 +62,29 @@
       "file": "cfyes.txt",
       "entries": 30,
       "active": true,
-      "last_updated": "2026-09-04T14:32:26.991034+08:00",
-      "reused_fallback": false
+      "last_updated": "2026-09-04T14:52:13.537234+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "vvhan",
       "label": "vvHan",
       "file": "vvhan.txt",
-      "entries": 54,
+      "entries": 55,
       "active": true,
       "last_updated": "2026-09-04T14:32:28.764874+08:00",
-      "reused_fallback": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "wetest",
       "label": "WeTest",
       "file": "wetest.txt",
-      "entries": 9,
+      "entries": 10,
       "active": true,
       "last_updated": "2026-09-04T14:32:29.879741+08:00",
-      "reused_fallback": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "uouin",
@@ -84,26 +92,29 @@
       "file": "uouin.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-04T14:32:30.533860+08:00",
-      "reused_fallback": false
+      "last_updated": "2026-09-04T14:52:13.984391+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "nirevil",
       "label": "NiREvil",
       "file": "nirevil.txt",
-      "entries": 41,
+      "entries": 42,
       "active": true,
       "last_updated": "2026-09-04T14:05:23.482802+08:00",
-      "reused_fallback": true
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "gslege",
       "label": "Gslege",
       "file": "gslege.txt",
-      "entries": 100,
+      "entries": 101,
       "active": true,
       "last_updated": "2026-09-04T14:34:32.650708+08:00",
-      "reused_fallback": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "zhixuanwang",
@@ -111,17 +122,19 @@
       "file": "zhixuanwang.txt",
       "entries": 1,
       "active": true,
-      "last_updated": "2026-09-04T14:34:33.045732+08:00",
-      "reused_fallback": false
+      "last_updated": "2026-09-04T14:52:30.017845+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "s5gy",
       "label": "S5公益",
       "file": "s5gy.txt",
-      "entries": 331,
+      "entries": 332,
       "active": true,
       "last_updated": "2026-09-04T14:34:36.607603+08:00",
-      "reused_fallback": false
+      "reused_fallback": true,
+      "rotated": true
     }
   ]
 }

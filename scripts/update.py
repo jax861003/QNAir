@@ -28,6 +28,14 @@ HEADER_IP = "162.159.198.1:443"
 FOOTER_IP = "162.159.197.1:443"
 BRAND = "QNAir"
 
+# ---- 轮换抓取 ----
+# QNAIR_ROTATE_GROUPS > 0 时，把上游分成 N 组，每轮只实抓其中一组，
+# 其余组沿用缓存数据（24h 内有效），减轻上游接口压力。
+# 组号按 UTC 时间每 ROTATE_SLOT_HOURS 小时轮换一次，与工作流 cron 间隔保持一致。
+ROTATE_SLOT_HOURS = 3
+ROTATE_GROUPS = int(os.environ.get("QNAIR_ROTATE_GROUPS") or 0)
+FORCE_ALL = os.environ.get("QNAIR_FORCE_ALL") == "1"
+
 BJ = timezone(timedelta(hours=8))
 UA_BROWSER = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
@@ -654,6 +662,7 @@ def merge_and_write(report, state):
                 "active": bool(r["entries"]),
                 "last_updated": state.get(r["name"], {}).get("last_ok"),
                 "reused_fallback": r["reused"],
+                "rotated": r.get("rotated", False),
             }
             for r in report
         ],
@@ -665,37 +674,58 @@ def merge_and_write(report, state):
 
 # ---------------------------------------------------------------- 主流程
 
+def current_group():
+    """按 UTC 时间每 ROTATE_SLOT_HOURS 小时轮换一次分组序号"""
+    slot = int(datetime.now(timezone.utc).timestamp() // (ROTATE_SLOT_HOURS * 3600))
+    return slot % ROTATE_GROUPS
+
+
 def main():
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     state = load_state()
     report = []
 
-    for src in SOURCES:
+    group = None
+    if ROTATE_GROUPS > 0 and not FORCE_ALL:
+        group = current_group()
+        print(f"[轮换] 本次实抓第 {group} 组（共 {ROTATE_GROUPS} 组），其余沿用缓存")
+
+    for i, src in enumerate(SOURCES):
         name, label = src["name"], src["label"]
         raw_path = RAW_DIR / src["file"]
-        nodes, reused = [], False
-        try:
-            nodes = FETCHERS[src["type"]](src)
-            if not nodes:
-                raise RuntimeError("抓取结果为空")
-            state[name] = {"last_ok": bj_iso(), "entries": len(nodes)}
-            print(f"[OK] {label}: 抓取 {len(nodes)} 条")
-        except Exception as e:
-            # 抓取失败：若 24h 内有成功记录则回退使用旧数据
-            if is_fresh(state.get(name, {}).get("last_ok")) and raw_path.exists():
-                nodes = reparse_raw(raw_path)
-                reused = bool(nodes)
-            if reused:
-                print(f"[回退] {label}: 抓取失败({e})，沿用 {FRESH_HOURS}h 内旧数据 {len(nodes)} 条")
-            else:
-                state.pop(name, None)
-                print(f"[跳过] {label}: 不活跃或抓取失败({e})，已剔除")
-                if raw_path.exists():
-                    raw_path.unlink()
-        if nodes:
+        nodes, reused, rotated = [], False, False
+
+        # 轮换机制：不在本组的上游跳过实抓，直接用 24h 内的缓存
+        if group is not None and i % ROTATE_GROUPS != group:
+            cached = reparse_raw(raw_path) if raw_path.exists() else []
+            if cached and is_fresh(state.get(name, {}).get("last_ok")):
+                nodes, reused, rotated = cached, True, True
+                print(f"[轮换] {label}: 本轮休息，沿用缓存 {len(nodes)} 条")
+
+        if not nodes:
+            try:
+                nodes = FETCHERS[src["type"]](src)
+                if not nodes:
+                    raise RuntimeError("抓取结果为空")
+                state[name] = {"last_ok": bj_iso(), "entries": len(nodes)}
+                print(f"[OK] {label}: 抓取 {len(nodes)} 条")
+            except Exception as e:
+                # 抓取失败：若 24h 内有成功记录则回退使用旧数据
+                if is_fresh(state.get(name, {}).get("last_ok")) and raw_path.exists():
+                    nodes = reparse_raw(raw_path)
+                    reused = bool(nodes)
+                if reused:
+                    print(f"[回退] {label}: 抓取失败({e})，沿用 {FRESH_HOURS}h 内旧数据 {len(nodes)} 条")
+                else:
+                    state.pop(name, None)
+                    print(f"[跳过] {label}: 不活跃或抓取失败({e})，已剔除")
+                    if raw_path.exists():
+                        raw_path.unlink()
+        if nodes and not rotated:
             write_source_file(raw_path, label, nodes)
         report.append({"name": name, "label": label, "file": src["file"],
-                       "entries": len(nodes), "reused": reused})
+                       "entries": len(nodes), "reused": reused,
+                       "rotated": rotated})
 
     save_state(state)
     merged, active = merge_and_write(report, state)
