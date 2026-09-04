@@ -1,157 +1,161 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-page-node-id="pZLDQNo086jqkbRVkLOMLu">
-<head data-page-node-id="dLZ6Yb6xG6QMMDkWCtA0sQ">
-<meta charset="UTF-8" data-page-node-id="ABZ0p4mN3EpVa2VCyoCHbQ">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="PuItR2N4levbBp4dqdC48v">
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2358A6FF'/%3E%3Ctext x='50' y='73' font-size='64' font-family='Arial,sans-serif' font-weight='bold' fill='%230D1117' text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E">
+<meta name="description" content="QNAir 优选IP - 定时自动更新的 Cloudflare 优选IP 列表">
+<meta name="keywords" content="Cloudflare, 优选IP, BestIP, QNAir, 免费节点, Clash, v2rayN, Shadowrocket">
 <title>QNAir 优选IP | Cloudflare BestIP</title>
-<meta name="description" content="QNAir 优选IP - 自动聚合多上游 Cloudflare 优选IP，统一格式输出" data-page-node-id="A8EeF623GuSrLYIhIlQKOZ">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext x='50' y='73' font-size='64' font-family='Arial,sans-serif' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E">
 <style>
-  :root {
-    --bg: #f5f7fa;
-    --card: #ffffff;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --accent: #2563eb;
-    --accent-soft: #eff6ff;
-    --border: #e5e7eb;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #e2e8f0;
-      --muted: #94a3b8;
-      --accent: #60a5fa;
-      --accent-soft: #1e3a5f;
-      --border: #334155;
-    }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-      "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    padding: 32px 16px 48px;
-  }
-  .wrap { max-width: 880px; margin: 0 auto; }
-  header { text-align: center; margin-bottom: 24px; }
-  header h1 { font-size: 1.6rem; letter-spacing: 1px; }
-  header h1 span { color: var(--accent); }
-  header p { color: var(--muted); font-size: .9rem; margin-top: 4px; }
-  .card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 12px; overflow: hidden;
-  }
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
-  tr:last-child td { border-bottom: none; }
-  th { color: var(--muted); font-weight: 500; font-size: .8rem; background: var(--accent-soft); }
-  td.link a {
-    word-break: break-all; font-family: ui-monospace, Consolas, monospace;
-    font-size: .82rem; color: var(--accent); text-decoration: none;
-  }
-  td.link a:hover { text-decoration: underline; }
-  .tag {
-    display: inline-block; padding: 1px 8px; border-radius: 99px;
-    font-size: .72rem; background: var(--accent-soft); color: var(--accent);
-    margin-left: 6px; vertical-align: middle;
-  }
-  .time { color: var(--muted); font-size: .8rem; white-space: nowrap; }
-  button.copy {
-    border: 1px solid var(--accent); color: var(--accent); background: transparent;
-    border-radius: 8px; padding: 4px 12px; cursor: pointer; font-size: .8rem;
-    transition: all .15s; white-space: nowrap;
-  }
-  button.copy:hover { background: var(--accent); color: #fff; }
-  .loading { color: var(--muted); text-align: center; padding: 20px; }
-  .err { color: var(--warn); }
+	:root { --bg-color:#0D1117; --card-bg:#161B22; --accent:#58A6FF; --accent-soft:rgba(56,139,253,.15); --accent-border:rgba(56,139,253,.4); --text-main:#E6EDF3; --text-muted:#7D8590; --border-color:#30363D; --code-bg:#161B22; --code-text:#58A6FF; --ok:#3FB950; --stripe-a:#0D1117; --stripe-b:#161B22; }
+	* { box-sizing:border-box; margin:0; padding:0; }
+	body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,sans-serif; background-color:var(--bg-color); background-image:radial-gradient(circle at 50% 0%, rgba(56,139,253,.10) 0%, transparent 600px); background-repeat:no-repeat; color:var(--text-main); line-height:1.6; padding:50px 20px; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+	.container { max-width:1080px; margin:0 auto; }
+	header { text-align:center; margin-bottom:38px; }
+	h1 { font-size:2.3rem; margin-bottom:14px; font-weight:800; letter-spacing:-.02em; background:linear-gradient(to right,#E6EDF3,var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+	.tips { display:block; font-size:.9rem; color:var(--text-muted); }
+	.badge { display:inline-flex; align-items:center; column-gap:6px; font-size:.74rem; font-weight:600; padding:3px 11px; border-radius:99px; color:var(--accent); border:1px solid var(--accent-border); background:rgba(56,139,253,.1); margin-top:12px; }
+	.badge .live { width:6px; height:6px; border-radius:50%; background:var(--ok); box-shadow:0 0 8px var(--ok); animation:blink 2s ease-in-out infinite; }
+	@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+	.summary { margin-top:12px; font-size:.82rem; color:var(--text-muted); }
+	.summary b { color:var(--text-main); font-weight:700; }
+	.tbl-wrap { overflow-x:auto; background-color:var(--card-bg); border:1px solid var(--border-color); border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.35); }
+	table { width:100%; border-collapse:collapse; font-size:.88rem; min-width:680px; }
+	th, td { text-align:left; padding:11px 14px; border-bottom:1px solid var(--border-color); vertical-align:middle; }
+	tr:last-child td { border-bottom:none; }
+	tbody tr { transition:background-color .2s; }
+	tbody tr:nth-child(odd) { background-color:var(--stripe-a); }
+	tbody tr:nth-child(even) { background-color:var(--stripe-b); }
+	tbody tr:hover { background-color:rgba(56,139,253,.12); }
+	th { color:var(--accent); font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; background:rgba(56,139,253,.08); border-bottom:1px solid var(--accent-border); font-weight:600; }
+	td.src { font-weight:700; color:var(--text-main); white-space:nowrap; }
+	td.src .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 8px var(--ok); margin-right:8px; vertical-align:middle; }
+	td.src .dot.off { background:#484F58; box-shadow:none; }
+	tr.off td.src, tr.off td.time { color:var(--text-muted); font-weight:500; }
+	.tag { display:inline-flex; align-items:center; font-size:.68rem; font-weight:600; padding:1px 7px; border-radius:4px; color:var(--accent); border:1px solid var(--accent-border); background:rgba(56,139,253,.1); margin-top:4px; white-space:nowrap; }
+	.url-text { font-family:ui-monospace,SFMono-Regular,Monaco,Consolas,monospace; font-size:.82rem; color:var(--code-text); word-break:break-all; user-select:all; display:inline-block; max-width:520px; text-decoration:none; }
+	.url-text:hover { text-decoration:underline; }
+	td.time { white-space:nowrap; color:var(--text-main); font-size:.84rem; }
+	td.time small { display:block; color:var(--text-muted); font-size:.72rem; }
+	.copy-btn { background:rgba(56,139,253,.14); color:var(--accent); border:1px solid var(--accent-border); height:32px; padding:0 16px; border-radius:7px; cursor:pointer; font-size:.82rem; font-weight:700; transition:all .3s; white-space:nowrap; }
+	.copy-btn:hover { background:var(--accent); color:#0D1117; box-shadow:0 0 15px rgba(56,139,253,.35); }
+	.copy-btn.success { background:var(--ok); border-color:var(--ok); color:#0D1117; box-shadow:0 0 15px rgba(63,185,80,.35); }
+	.loading { text-align:center; padding:26px; color:var(--text-muted); }
+	footer { text-align:center; margin-top:26px; padding-top:24px; border-top:1px solid var(--border-color); font-size:.82rem; color:var(--text-muted); }
+	footer a { color:var(--accent); text-decoration:none; }
+	footer a:hover { text-decoration:underline; }
+	@media (max-width:768px) {
+		body { padding:28px 14px; }
+		h1 { font-size:1.7rem; }
+		.tbl-wrap { overflow-x:visible; }
+		table { min-width:0; font-size:.82rem; }
+		thead { display:none; }
+		tr { display:block; padding:12px 14px; border-bottom:1px solid var(--border-color); }
+		tr:last-child { border-bottom:none; }
+		th, td { display:block; width:100% !important; border:none; padding:2px 0; }
+		td.src { font-size:1rem; white-space:normal; margin-bottom:6px; }
+		.url-text { display:block; max-width:none; font-size:.78rem; margin:4px 0; }
+		td.time { margin:4px 0; }
+		.copy-btn { width:100%; height:36px; margin-top:8px; }
+	}
 </style>
 </head>
-<body data-page-node-id="MBAcmoJSEbAUTCENOrJdE6">
-<div class="wrap" data-page-node-id="ewL1tcdLXTmpwTGrGCAWY1">
-  <header data-page-node-id="80zktTRLJnBh4U0XzUVyAE">
-    <h1 data-page-node-id="gu6yKWgjAA0mohrS1dimTd"><span data-page-node-id="FitVuQMiRn5EqkD3bFx8Hh">QNAir</span> 优选IP</h1>
-    <p data-page-node-id="yHT21pHF7reeWdhhM96e1m">Cloudflare BestIP · 多上游自动聚合 · 统一格式输出</p>
-  </header>
+<body>
+<div class="container">
+	<header>
+		<h1>QNAir 优选IP</h1>
+		<span class="tips">定时自动抓取多上游数据 · 统一格式输出 · 开箱即用</span>
+		<div><span class="badge"><span class="live"></span>Actions 每 3 小时自动更新</span></div>
+		<p class="summary" id="summary">正在读取上游状态…</p>
+	</header>
 
-  <div class="card" data-page-node-id="7v9mQVzOskAUxuJHbVuKWs">
-    <table data-page-node-id="lJ9xaVgdLxPt0CJlIp0W4Z">
-      <thead data-page-node-id="L5tKXeYC2SoX6pDWT3B0w4"><tr data-page-node-id="HzzdH1p2D0vLHnZfGonsqS"><th style="width:30%" data-page-node-id="AxGvWG6BJOHImUqsR6jkkp">上游名称</th><th data-page-node-id="m4fC7sIB4JGJonnid5Emmq">更新地址</th><th style="width:130px" data-page-node-id="42bnB5DqxV8Fot5LWRl2DS">更新时间</th><th style="width:88px" data-page-node-id="78wcWpdTB8UlgjEYkhKann">操作</th></tr></thead>
-      <tbody id="tb-src" data-page-node-id="kZ70heJMJg1sV4UQf4GwDe"><tr data-page-node-id="gynn4DXsBLLrVjCOVAUpMC"><td colspan="4" class="loading" data-page-node-id="KbpZj5KqEdk434MZTllmqg">加载中…</td></tr></tbody>
-    </table>
-  </div>
+	<div class="tbl-wrap">
+		<table>
+			<thead><tr><th style="width:150px;">来源</th><th>更新地址</th><th style="width:150px;">更新时间</th><th style="width:110px;">操作</th></tr></thead>
+			<tbody id="tb"><tr><td colspan="4" class="loading">加载中…</td></tr></tbody>
+		</table>
+	</div>
+
+	<footer>
+		<span class="tips">内容整理自公开接口，免费使用 · <a href="https://github.com/jax861003/QNAir" target="_blank" rel="noopener">GitHub</a></span>
+	</footer>
 </div>
 
 <script>
-function copyText(text, btn) {
-  const done = () => { btn.textContent = "✅ 已复制"; setTimeout(() => btn.textContent = "复制", 1500); };
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).then(done);
-  } else {
-    const ta = document.createElement("textarea");
-    ta.value = text; document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); ta.remove(); done();
-  }
-}
-
-function makeCopyBtn(path) {
-  const btn = document.createElement("button");
-  btn.className = "copy"; btn.textContent = "复制";
-  btn.onclick = () => copyText(location.origin + "/" + path, btn);
-  return btn;
-}
-
 function esc(s) {
-  return String(s).replace(/[&<>"']/g, c =>
-    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+	return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-async function loadMeta() {
-  try {
-    const res = await fetch("data/sources.json", { cache: "no-store" });
-    const meta = await res.json();
-    const tb = document.getElementById("tb-src");
-    tb.innerHTML = "";
-    const active = meta.sources.filter(s => s.active);
-    if (!active.length) {
-      tb.innerHTML = `<tr><td colspan="4" class="loading err">暂无活跃上游，请确认已触发工作流生成数据</td></tr>`;
-      return;
-    }
-    active.forEach(s => {
-      const time = s.last_updated
-        ? String(s.last_updated).slice(5, 16).replace("T", " ")
-        : "-";
-      const tr = document.createElement("tr");
-      const nameTd = document.createElement("td");
-      nameTd.innerHTML = `<b>${esc(s.label)}</b><span class="tag">${s.entries} 条</span>`;
-
-      const linkTd = document.createElement("td");
-      linkTd.className = "link";
-      const a = document.createElement("a");
-      a.href = "data/raw/" + s.file;
-      a.textContent = "data/raw/" + s.file;
-      linkTd.appendChild(a);
-
-      const timeTd = document.createElement("td");
-      timeTd.className = "time";
-      timeTd.textContent = time;
-
-      const opTd = document.createElement("td");
-      opTd.appendChild(makeCopyBtn("data/raw/" + s.file));
-
-      tr.append(nameTd, linkTd, timeTd, opTd);
-      tb.appendChild(tr);
-    });
-  } catch (e) {
-    document.getElementById("tb-src").innerHTML =
-      `<tr><td colspan="4" class="loading err">sources.json 加载失败，请确认已部署并完成首次数据生成</td></tr>`;
-  }
+function relTime(iso) {
+	var d = new Date(iso);
+	if (isNaN(d)) return '';
+	var m = Math.floor((Date.now() - d.getTime()) / 60000);
+	if (m < 1) return '刚刚';
+	if (m < 60) return m + ' 分钟前';
+	var h = Math.floor(m / 60);
+	if (h < 24) return h + ' 小时前';
+	return Math.floor(h / 24) + ' 天前';
 }
 
-loadMeta();
+function shortTime(iso) {
+	if (!iso) return '—';
+	var d = new Date(iso);
+	if (isNaN(d)) return '—';
+	var p = n => (n < 10 ? '0' : '') + n;
+	return p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+window.copy = function(btn, path) {
+	var full = /^https?:/i.test(path) ? path : location.origin + (path.charAt(0) === '/' ? '' : '/') + path;
+	var done = function() { btn.classList.remove('success'); btn.textContent = '复制链接'; };
+	var ok = function() { btn.classList.add('success'); btn.textContent = '复制成功'; setTimeout(done, 1500); };
+	if (navigator.clipboard && navigator.clipboard.writeText) {
+		navigator.clipboard.writeText(full).then(ok, fallback);
+	} else { fallback(); }
+	function fallback() {
+		var ta = document.createElement('textarea');
+		ta.value = full; document.body.appendChild(ta); ta.select();
+		try { if (document.execCommand('copy')) ok(); else prompt('复制链接', full); }
+		catch (e) { prompt('复制链接', full); }
+		document.body.removeChild(ta);
+	}
+};
+
+function buildRow(s) {
+	var path = 'data/raw/' + s.file;
+	var tr = document.createElement('tr');
+	if (!s.active) tr.className = 'off';
+	tr.innerHTML =
+		'<td class="src"><span class="dot' + (s.active ? '' : ' off') + '"></span>' + esc(s.label) +
+			(s.active ? '<span class="tag">' + esc(s.entries) + ' 条</span>' : '') + '</td>' +
+		'<td><a class="url-text" href="' + esc(path) + '" target="_blank" rel="noopener">' + esc(path) + '</a></td>' +
+		'<td class="time">' + shortTime(s.last_updated) + '<small>' + (s.last_updated ? esc(relTime(s.last_updated)) : '暂无数据') + '</small></td>' +
+		'<td><button class="copy-btn" onclick="copy(this,\'' + esc(path) + '\')">复制链接</button></td>';
+	return tr;
+}
+
+fetch('data/sources.json', { cache: 'no-store' })
+	.then(function(r) { return r.json(); })
+	.then(function(meta) {
+		var tb = document.getElementById('tb');
+		tb.innerHTML = '';
+		var rows = meta.sources || [];
+		var active = rows.filter(function(s) { return s.active; });
+		var rest = rows.filter(function(s) { return !s.active; });
+		active.concat(rest).forEach(function(s) { tb.appendChild(buildRow(s)); });
+		if (!rows.length) {
+			tb.innerHTML = '<tr><td colspan="4" class="loading">暂无数据，请先在 Actions 手动触发一次 Update QNAir</td></tr>';
+		}
+		document.getElementById('summary').innerHTML =
+			'活跃上游 <b>' + active.length + '</b> / ' + rows.length +
+			' · 去重后 <b>' + (meta.total_entries || 0) + '</b> 条' +
+			' · 最近更新 <b>' + shortTime(meta.generated_at) + '</b>';
+	})
+	.catch(function() {
+		document.getElementById('tb').innerHTML = '<tr><td colspan="4" class="loading">sources.json 加载失败，请确认已完成首次数据生成</td></tr>';
+		document.getElementById('summary').textContent = '数据暂不可用';
+	});
 </script>
 </body>
 </html>
