@@ -24,8 +24,6 @@ RAW_DIR = DATA / "raw"
 STATE_FILE = DATA / "state.json"
 
 FRESH_HOURS = 24          # 上游超过该时长无更新即视为不活跃
-HEADER_IP = "162.159.198.1:443"
-FOOTER_IP = "162.159.197.1:443"
 BRAND = "QNAir"
 
 # ---- 轮换抓取 ----
@@ -613,9 +611,9 @@ def reparse_raw(path):
 # ---------------------------------------------------------------- 输出
 
 def write_source_file(path, label, nodes):
-    lines = [f"{HEADER_IP}#{BRAND} | {label} | {bj_compact()}"]
+    lines = [f"{BRAND} | {label} | {bj_compact()}"]
     lines += [n.line() for n in nodes]
-    lines.append(f"{FOOTER_IP}#{BRAND} | {label} | 数据来源公开上游接口")
+    lines.append(f"{BRAND} | {label} | 数据来源公开上游接口")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
