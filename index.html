@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2358A6FF'/%3E%3Ctext x='50' y='73' font-size='64' font-family='Arial,sans-serif' font-weight='bold' fill='%230D1117' text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E">
-<meta name="description" content="QNAir 优选IP - 定时自动更新的 Cloudflare 优选IP 列表">
-<meta name="keywords" content="Cloudflare, 优选IP, BestIP, QNAir, 免费节点, Clash, v2rayN, Shadowrocket">
+<html lang="zh-CN" data-page-node-id="vBHYwCOl2P2MtK7jewxQJ9">
+<head data-page-node-id="f4cuXd14IqJHCQfXLCElaK">
+<meta charset="UTF-8" data-page-node-id="nS6FUJignMjNTXlbucXKPH">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="0isAg5BU3tZJVrNQAirRJJ">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2358A6FF'/%3E%3Ctext x='50' y='73' font-size='64' font-family='Arial,sans-serif' font-weight='bold' fill='%230D1117' text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E" data-page-node-id="HRIwy6NApeJ5W55T0A8xyV">
+<meta name="description" content="QNAir 优选IP - 定时自动更新的 Cloudflare 优选IP 列表" data-page-node-id="wWdTkBlaU8dEkYdnF3CLBE">
+<meta name="keywords" content="Cloudflare, 优选IP, BestIP, QNAir, 免费节点, Clash, v2rayN, Shadowrocket" data-page-node-id="3OgQVeVBD9h4jzLB2YqBCc">
 <title>QNAir 优选IP | Cloudflare BestIP</title>
 <style>
 	:root { --bg-color:#0D1117; --card-bg:#161B22; --accent:#58A6FF; --accent-soft:rgba(56,139,253,.15); --accent-border:rgba(56,139,253,.4); --text-main:#E6EDF3; --text-muted:#7D8590; --border-color:#30363D; --code-bg:#161B22; --code-text:#58A6FF; --ok:#3FB950; --stripe-a:#0D1117; --stripe-b:#161B22; }
@@ -33,6 +33,7 @@
 	td.src .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 8px var(--ok); margin-right:8px; vertical-align:middle; }
 	td.src .dot.off { background:#484F58; box-shadow:none; }
 	tr.off td.src, tr.off td.time { color:var(--text-muted); font-weight:500; }
+	.code { display:inline-flex; align-items:center; font-family:ui-monospace,SFMono-Regular,Monaco,Consolas,monospace; font-size:.76rem; font-weight:700; padding:2px 9px; border-radius:5px; color:var(--ok); border:1px solid rgba(63,185,80,.45); background:rgba(63,185,80,.12); letter-spacing:.03em; white-space:nowrap; }
 	.tag { display:inline-flex; align-items:center; font-size:.68rem; font-weight:600; padding:1px 7px; border-radius:4px; color:var(--accent); border:1px solid var(--accent-border); background:rgba(56,139,253,.1); margin-top:4px; white-space:nowrap; }
 	.url-text { font-family:ui-monospace,SFMono-Regular,Monaco,Consolas,monospace; font-size:.82rem; color:var(--code-text); word-break:break-all; user-select:all; display:inline-block; max-width:520px; text-decoration:none; }
 	.url-text:hover { text-decoration:underline; }
@@ -61,24 +62,24 @@
 	}
 </style>
 </head>
-<body>
-<div class="container">
-	<header>
-		<h1>QNAir 优选IP</h1>
-		<span class="tips">定时自动抓取多上游数据 · 统一格式输出 · 开箱即用</span>
-		<div><span class="badge"><span class="live"></span>Actions 每 3 小时自动更新</span></div>
-		<p class="summary" id="summary">正在读取上游状态…</p>
+<body data-page-node-id="OYv8BoYrrEC1PyxnVDUe6g">
+<div class="container" data-page-node-id="M4vqadqY920VoP199C6Jkr">
+	<header data-page-node-id="cLkmE9EmY1ufWanJ5eyira">
+		<h1 data-page-node-id="VAgC25oI3EjpfOLWeTVwGu">QNAir 优选IP</h1>
+		<span class="tips" data-page-node-id="B1BYhssX6B5fHsVROxHdKi">定时自动抓取多上游数据 · 统一格式输出 · 开箱即用</span>
+		<div data-page-node-id="WAD4YQNJCdL9O7usHueAi6"><span class="badge" data-page-node-id="GkbSadvKVMQsBI76MF6ll1"><span class="live" data-page-node-id="tuGaXNk2YHCNBjRkJZKaTG"></span>Actions 每 3 小时自动更新</span></div>
+		<p class="summary" id="summary" data-page-node-id="UDd5fmOLsEpwdu5gAP4NsD">正在读取上游状态…</p>
 	</header>
 
-	<div class="tbl-wrap">
-		<table>
-			<thead><tr><th style="width:150px;">来源</th><th>更新地址</th><th style="width:150px;">更新时间</th><th style="width:110px;">操作</th></tr></thead>
-			<tbody id="tb"><tr><td colspan="4" class="loading">加载中…</td></tr></tbody>
+	<div class="tbl-wrap" data-page-node-id="BHsEOLNURkWLBNQjwUC6Aq">
+		<table data-page-node-id="5n4TgaflVUB7bNMdgKQqtH">
+			<thead><tr><th style="width:140px;">来源</th><th style="width:90px;">简称</th><th>更新地址</th><th style="width:140px;">更新时间</th><th style="width:110px;">操作</th></tr></thead>
+			<tbody id="tb"><tr><td colspan="5" class="loading">加载中…</td></tr></tbody>
 		</table>
 	</div>
 
-	<footer>
-		<span class="tips">内容整理自公开接口，免费使用 · <a href="https://github.com/jax861003/QNAir" target="_blank" rel="noopener">GitHub</a></span>
+	<footer data-page-node-id="MlV6OXc6mWprPIRQxPoGsy">
+		<span class="tips" data-page-node-id="IiVhHTx3m2CtwcZE2jlM9l">内容整理自公开接口，免费使用 · <a href="https://github.com/jax861003/QNAir" target="_blank" rel="noopener" data-page-node-id="HC0eOVD1BQAD4UfK0DNPxA">GitHub</a></span>
 	</footer>
 </div>
 
@@ -129,6 +130,7 @@ function buildRow(s) {
 	tr.innerHTML =
 		'<td class="src"><span class="dot' + (s.active ? '' : ' off') + '"></span>' + esc(s.label) +
 			(s.active ? '<span class="tag">' + esc(s.entries) + ' 条</span>' : '') + '</td>' +
+		'<td><span class="code">' + esc(s.code || '--') + '</span></td>' +
 		'<td><a class="url-text" href="' + esc(path) + '" target="_blank" rel="noopener">' + esc(path) + '</a></td>' +
 		'<td class="time">' + shortTime(s.last_updated) + '<small>' + (s.last_updated ? esc(relTime(s.last_updated)) : '暂无数据') + '</small></td>' +
 		'<td><button class="copy-btn" onclick="copy(this,\'' + esc(path) + '\')">复制链接</button></td>';
@@ -145,7 +147,7 @@ fetch('data/sources.json', { cache: 'no-store' })
 		var rest = rows.filter(function(s) { return !s.active; });
 		active.concat(rest).forEach(function(s) { tb.appendChild(buildRow(s)); });
 		if (!rows.length) {
-			tb.innerHTML = '<tr><td colspan="4" class="loading">暂无数据，请先在 Actions 手动触发一次 Update QNAir</td></tr>';
+			tb.innerHTML = '<tr><td colspan="5" class="loading">暂无数据，请先在 Actions 手动触发一次 Update QNAir</td></tr>';
 		}
 		document.getElementById('summary').innerHTML =
 			'活跃上游 <b>' + active.length + '</b> / ' + rows.length +
@@ -153,7 +155,7 @@ fetch('data/sources.json', { cache: 'no-store' })
 			' · 最近更新 <b>' + shortTime(meta.generated_at) + '</b>';
 	})
 	.catch(function() {
-		document.getElementById('tb').innerHTML = '<tr><td colspan="4" class="loading">sources.json 加载失败，请确认已完成首次数据生成</td></tr>';
+		document.getElementById('tb').innerHTML = '<tr><td colspan="5" class="loading">sources.json 加载失败，请确认已完成首次数据生成</td></tr>';
 		document.getElementById('summary').textContent = '数据暂不可用';
 	});
 </script>

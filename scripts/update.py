@@ -61,20 +61,21 @@ VVHAN_URL = "https://api.4ce.cn/api/bestCFIP"
 UOUIN_URL = "https://api.uouin.com/cloudflare.html"
 
 # 需要配置 GitHub Secrets 的订阅型上游（缺 Secret 时自动跳过）
+# code = 输出模板里的上游简称，如 QNAir-LL | 香港 | 001
 SOURCES = [
-    {"name": "cmliu",       "label": "CM",      "type": "sub", "env": "CMLIU_URL",       "file": "cmliu.txt"},
-    {"name": "cmliu2",      "label": "CM 2",    "type": "sub", "env": "CMLIU2_URL",      "file": "cmliu2.txt"},
-    {"name": "luoli",       "label": "洛璃",    "type": "sub", "env": "LUOLI_URL",       "file": "luoli.txt"},
-    {"name": "lzj",         "label": "辣子鸡",  "type": "sub", "env": "LZJ_URL",         "file": "lzj.txt"},
-    {"name": "mia",         "label": "Mia",     "type": "sub", "env": "XINYITANG3_URL",  "file": "mia.txt"},
-    {"name": "cfyes",       "label": "CFYes",   "type": "cfyes",       "file": "cfyes.txt"},
-    {"name": "vvhan",       "label": "vvHan",   "type": "vvhan",       "file": "vvhan.txt"},
-    {"name": "wetest",      "label": "WeTest",  "type": "wetest",      "file": "wetest.txt"},
-    {"name": "uouin",       "label": "麒麟",    "type": "uouin",       "file": "uouin.txt"},
-    {"name": "nirevil",     "label": "NiREvil", "type": "nirevil",     "file": "nirevil.txt"},
-    {"name": "gslege",      "label": "Gslege",  "type": "gslege",      "file": "gslege.txt"},
-    {"name": "zhixuanwang", "label": "ZhiXuan", "type": "zhixuanwang", "file": "zhixuanwang.txt"},
-    {"name": "s5gy",        "label": "S5公益",  "type": "s5gy",        "file": "s5gy.txt"},
+    {"name": "cmliu",       "label": "CM",      "code": "CM",  "type": "sub", "env": "CMLIU_URL",       "file": "cmliu.txt"},
+    {"name": "cmliu2",      "label": "CM 2",    "code": "CM",  "type": "sub", "env": "CMLIU2_URL",      "file": "cmliu2.txt"},
+    {"name": "luoli",       "label": "洛璃",    "code": "LL",  "type": "sub", "env": "LUOLI_URL",       "file": "luoli.txt"},
+    {"name": "lzj",         "label": "辣子鸡",  "code": "LZ",  "type": "sub", "env": "LZJ_URL",         "file": "lzj.txt"},
+    {"name": "mia",         "label": "Mia",     "code": "MIA", "type": "sub", "env": "XINYITANG3_URL",  "file": "mia.txt"},
+    {"name": "cfyes",       "label": "CFYes",   "code": "CFY", "type": "cfyes",       "file": "cfyes.txt"},
+    {"name": "vvhan",       "label": "vvHan",   "code": "VH",  "type": "vvhan",       "file": "vvhan.txt"},
+    {"name": "wetest",      "label": "WeTest",  "code": "WT",  "type": "wetest",      "file": "wetest.txt"},
+    {"name": "uouin",       "label": "麒麟",    "code": "QL",  "type": "uouin",       "file": "uouin.txt"},
+    {"name": "nirevil",     "label": "NiREvil", "code": "NR",  "type": "nirevil",     "file": "nirevil.txt"},
+    {"name": "gslege",      "label": "Gslege",  "code": "GS",  "type": "gslege",      "file": "gslege.txt"},
+    {"name": "zhixuanwang", "label": "ZhiXuan", "code": "ZX",  "type": "zhixuanwang", "file": "zhixuanwang.txt"},
+    {"name": "s5gy",        "label": "S5公益",  "code": "S5",  "type": "s5gy",        "file": "s5gy.txt"},
 ]
 
 # ---------------------------------------------------------------- 时间工具
@@ -246,23 +247,27 @@ def fmt_ip(ip):
 # ---------------------------------------------------------------- 节点解析
 
 class Node:
-    __slots__ = ("ip", "port", "region", "isp")
+    __slots__ = ("ip", "port", "region", "isp", "code")
 
-    def __init__(self, ip, port, region, isp):
+    def __init__(self, ip, port, region, isp, code=None):
         self.ip = ip
         self.port = port
         self.region = region or "未知"
         self.isp = isp or "未知"
+        self.code = code
 
     @property
     def key(self):
         return f"{self.ip}:{self.port}"
 
-    def line(self):
-        return f"{fmt_ip(self.ip)}:{self.port}#{BRAND} | {self.region} | {self.isp}"
+    def line(self, code, idx):
+        """统一输出行：IP:端口#QNAir-简称 | 地区 | 序号"""
+        brand = f"{BRAND}-{code}" if code else BRAND
+        return f"{fmt_ip(self.ip)}:{self.port}#{brand} | {self.region} | {idx:03d}"
 
 
 UNIFIED_RE = re.compile(r"^(\[[0-9A-Fa-f:]+\]|[0-9A-Fa-f.]+):(\d{1,5})#(.+)$")
+BRAND_RE = re.compile(r"^QNAir(?:-([A-Za-z0-9]+))?$")
 
 
 def classify_segs(segs):
@@ -284,8 +289,8 @@ def classify_segs(segs):
     return region, isp
 
 
-def parse_unified_line(line):
-    """解析社区通用格式：IP:端口#名称 | 片段1 | 片段2 ..."""
+def parse_unified_line(line, default_code=None):
+    """解析统一格式行：IP:端口#QNAir-简称 | 地区 | 序号"""
     m = UNIFIED_RE.match(line.strip())
     if not m:
         return None
@@ -299,9 +304,11 @@ def parse_unified_line(line):
         return None
     if not valid_ip(ip):
         return None
-    # 第一个片段是来源名，跳过
+    # 第一个片段是品牌名（可能带上游简称），其余识别地区
+    bm = BRAND_RE.match(segs[0])
+    code = (bm.group(1) if bm else None) or default_code
     region, isp = classify_segs(segs[1:])
-    return Node(ip.strip("[]"), port, region, isp)
+    return Node(ip.strip("[]"), port, region, isp, code)
 
 
 # ---------------------------------------------------------------- HTTP
@@ -595,12 +602,12 @@ def is_fresh(iso_time):
     return now_bj() - t <= timedelta(hours=FRESH_HOURS)
 
 
-def reparse_raw(path):
-    """从已保存的原始文件中重新解析节点（上游抓取失败时的回退）"""
+def reparse_nodes(path, default_code=None):
+    """从已发布的明细文件中重新解析节点（轮换沿用 / 抓取失败回退）"""
     nodes = []
     try:
         for line in path.read_text(encoding="utf-8").splitlines():
-            node = parse_unified_line(line)
+            node = parse_unified_line(line, default_code)
             if node:
                 nodes.append(node)
     except Exception:
@@ -610,31 +617,32 @@ def reparse_raw(path):
 
 # ---------------------------------------------------------------- 输出
 
-def write_source_file(path, label, nodes):
-    lines = [f"{BRAND} | {label} | {bj_compact()}"]
-    lines += [n.line() for n in nodes]
-    lines.append(f"{BRAND} | {label} | 数据来源公开上游接口")
+def write_source_file(path, label, code, nodes):
+    """发布文件：IP:端口#QNAir-简称 | 地区 | 序号，序号每个上游从 001 开始"""
+    brand = f"{BRAND}-{code}" if code else BRAND
+    lines = [f"{brand} | {label} | {bj_compact()}"]
+    lines += [n.line(code, i) for i, n in enumerate(nodes, 1)]
+    lines.append(f"{brand} | {label} | 数据来源公开上游接口")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 # ---------------------------------------------------------------- 合并输出
 
 def merge_and_write(report, state):
-    """合并所有活跃上游 → 统一格式输出（全量/迷你/按运营商）+ sources.json"""
-    # ---- 合并去重（按来源优先级顺序）----
+    """合并所有活跃上游 → 统一格式输出 + sources.json"""
+    # ---- 合并去重（按来源优先级顺序），保留每条数据归属的上游简称 ----
     seen, merged = set(), []
     for item in report:
         if not item["entries"]:
             continue
-        for node in reparse_raw(RAW_DIR / item["file"]):
+        for node in reparse_nodes(RAW_DIR / item["file"], item["code"]):
             if node.key in seen:
                 continue
             seen.add(node.key)
-            merged.append(node)
+            merged.append((item["code"], node))
 
-    # ---- 全量：统一序号格式 001-QNAir | 地区 | 运营商（三位序号，预留至 999）----
-    lines = [f"{i:03d}-{BRAND} | {node.region} | {node.isp}"
-             for i, node in enumerate(merged, 1)]
+    # ---- 全量输出：序号 001 起连续编号 ----
+    lines = [node.line(code, i) for i, (code, node) in enumerate(merged, 1)]
     (DATA / "QNAir-all.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     # 清理旧版拆分文件
@@ -652,10 +660,11 @@ def merge_and_write(report, state):
         "fresh_hours": FRESH_HOURS,
         "total_entries": len(merged),
         "active_sources": len(active),
-        "format": "序号-QNAir | 地区 | 运营商",
+        "format": "QNAir-简称 | 地区 | 序号",
         "sources": [
             {
-                "name": r["name"], "label": r["label"], "file": r["file"],
+                "name": r["name"], "label": r["label"], "code": r["code"],
+                "file": r["file"],
                 "entries": r["entries"],
                 "active": bool(r["entries"]),
                 "last_updated": state.get(r["name"], {}).get("last_ok"),
@@ -689,13 +698,13 @@ def main():
         print(f"[轮换] 本次实抓第 {group} 组（共 {ROTATE_GROUPS} 组），其余沿用缓存")
 
     for i, src in enumerate(SOURCES):
-        name, label = src["name"], src["label"]
+        name, label, code = src["name"], src["label"], src["code"]
         raw_path = RAW_DIR / src["file"]
         nodes, reused, rotated = [], False, False
 
         # 轮换机制：不在本组的上游跳过实抓，直接用 24h 内的缓存
         if group is not None and i % ROTATE_GROUPS != group:
-            cached = reparse_raw(raw_path) if raw_path.exists() else []
+            cached = reparse_nodes(raw_path, code) if raw_path.exists() else []
             if cached and is_fresh(state.get(name, {}).get("last_ok")):
                 nodes, reused, rotated = cached, True, True
                 print(f"[轮换] {label}: 本轮休息，沿用缓存 {len(nodes)} 条")
@@ -710,7 +719,7 @@ def main():
             except Exception as e:
                 # 抓取失败：若 24h 内有成功记录则回退使用旧数据
                 if is_fresh(state.get(name, {}).get("last_ok")) and raw_path.exists():
-                    nodes = reparse_raw(raw_path)
+                    nodes = reparse_nodes(raw_path, code)
                     reused = bool(nodes)
                 if reused:
                     print(f"[回退] {label}: 抓取失败({e})，沿用 {FRESH_HOURS}h 内旧数据 {len(nodes)} 条")
@@ -720,8 +729,9 @@ def main():
                     if raw_path.exists():
                         raw_path.unlink()
         if nodes and not rotated:
-            write_source_file(raw_path, label, nodes)
-        report.append({"name": name, "label": label, "file": src["file"],
+            write_source_file(raw_path, label, code, nodes)
+        report.append({"name": name, "label": label, "code": code,
+                       "file": src["file"],
                        "entries": len(nodes), "reused": reused,
                        "rotated": rotated})
 
