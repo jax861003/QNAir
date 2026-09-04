@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-09-04T14:34:36.764572+08:00",
+  "generated_compact": "09-04 14:34",
+  "fresh_hours": 24,
+  "total_entries": 862,
+  "active_sources": 13,
+  "format": "序号-QNAir | 地区 | 运营商",
+  "sources": [
+    {
+      "name": "cmliu",
+      "label": "CM",
+      "file": "cmliu.txt",
+      "entries": 36,
+      "active": true,
+      "last_updated": "2026-09-04T12:33:00+08:00",
+      "reused_fallback": true
+    },
+    {
+      "name": "cmliu2",
+      "label": "CM 2",
+      "file": "cmliu2.txt",
+      "entries": 47,
+      "active": true,
+      "last_updated": "2026-09-04T13:04:00+08:00",
+      "reused_fallback": true
+    },
+    {
+      "name": "luoli",
+      "label": "洛璃",
+      "file": "luoli.txt",
+      "entries": 39,
+      "active": true,
+      "last_updated": "2026-09-04T10:32:00+08:00",
+      "reused_fallback": true
+    },
+    {
+      "name": "lzj",
+      "label": "辣子鸡",
+      "file": "lzj.txt",
+      "entries": 261,
+      "active": true,
+      "last_updated": "2026-09-04T12:35:00+08:00",
+      "reused_fallback": true
+    },
+    {
+      "name": "mia",
+      "label": "Mia",
+      "file": "mia.txt",
+      "entries": 39,
+      "active": true,
+      "last_updated": "2026-09-04T12:32:00+08:00",
+      "reused_fallback": true
+    },
+    {
+      "name": "cfyes",
+      "label": "CFYes",
+      "file": "cfyes.txt",
+      "entries": 30,
+      "active": true,
+      "last_updated": "2026-09-04T14:32:26.991034+08:00",
+      "reused_fallback": false
+    },
+    {
+      "name": "vvhan",
+      "label": "vvHan",
+      "file": "vvhan.txt",
+      "entries": 54,
+      "active": true,
+      "last_updated": "2026-09-04T14:32:28.764874+08:00",
+      "reused_fallback": false
+    },
+    {
+      "name": "wetest",
+      "label": "WeTest",
+      "file": "wetest.txt",
+      "entries": 9,
+      "active": true,
+      "last_updated": "2026-09-04T14:32:29.879741+08:00",
+      "reused_fallback": false
+    },
+    {
+      "name": "uouin",
+      "label": "麒麟",
+      "file": "uouin.txt",
+      "entries": 40,
+      "active": true,
+      "last_updated": "2026-09-04T14:32:30.533860+08:00",
+      "reused_fallback": false
+    },
+    {
+      "name": "nirevil",
+      "label": "NiREvil",
+      "file": "nirevil.txt",
+      "entries": 41,
+      "active": true,
+      "last_updated": "2026-09-04T14:05:23.482802+08:00",
+      "reused_fallback": true
+    },
+    {
+      "name": "gslege",
+      "label": "Gslege",
+      "file": "gslege.txt",
+      "entries": 100,
+      "active": true,
+      "last_updated": "2026-09-04T14:34:32.650708+08:00",
+      "reused_fallback": false
+    },
+    {
+      "name": "zhixuanwang",
+      "label": "ZhiXuan",
+      "file": "zhixuanwang.txt",
+      "entries": 1,
+      "active": true,
+      "last_updated": "2026-09-04T14:34:33.045732+08:00",
+      "reused_fallback": false
+    },
+    {
+      "name": "s5gy",
+      "label": "S5公益",
+      "file": "s5gy.txt",
+      "entries": 331,
+      "active": true,
+      "last_updated": "2026-09-04T14:34:36.607603+08:00",
+      "reused_fallback": false
+    }
+  ]
+}
