@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-05T00:51:41.618289+08:00",
-  "generated_compact": "09-05 00:51",
+  "generated_at": "2026-09-05T03:34:06.473423+08:00",
+  "generated_compact": "09-05 03:34",
   "fresh_hours": 24,
   "total_entries": 869,
   "active_sources": 13,
@@ -88,9 +88,9 @@
       "label": "WeTest",
       "code": "WT",
       "file": "wetest.txt",
-      "entries": 15,
+      "entries": 14,
       "active": true,
-      "last_updated": "2026-09-05T00:51:40.691633+08:00",
+      "last_updated": "2026-09-05T03:34:05.588866+08:00",
       "reused_fallback": false,
       "rotated": false
     },
@@ -121,9 +121,9 @@
       "label": "Gslege",
       "code": "GS",
       "file": "gslege.txt",
-      "entries": 98,
+      "entries": 99,
       "active": true,
-      "last_updated": "2026-09-05T00:51:41.571705+08:00",
+      "last_updated": "2026-09-05T03:34:06.427296+08:00",
       "reused_fallback": false,
       "rotated": false
     },
