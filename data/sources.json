@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-04T20:07:44.087881+08:00",
-  "generated_compact": "09-04 20:07",
+  "generated_at": "2026-09-04T20:45:03.857860+08:00",
+  "generated_compact": "09-04 20:45",
   "fresh_hours": 24,
-  "total_entries": 851,
+  "total_entries": 868,
   "active_sources": 13,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -26,7 +26,7 @@
       "active": true,
       "last_updated": "2026-09-04T13:04:00+08:00",
       "reused_fallback": true,
-      "rotated": false
+      "rotated": true
     },
     {
       "name": "luoli",
@@ -37,7 +37,7 @@
       "active": true,
       "last_updated": "2026-09-04T10:32:00+08:00",
       "reused_fallback": true,
-      "rotated": false
+      "rotated": true
     },
     {
       "name": "lzj",
@@ -59,7 +59,7 @@
       "active": true,
       "last_updated": "2026-09-04T12:32:00+08:00",
       "reused_fallback": true,
-      "rotated": false
+      "rotated": true
     },
     {
       "name": "cfyes",
@@ -69,17 +69,17 @@
       "entries": 30,
       "active": true,
       "last_updated": "2026-09-04T20:07:34.236052+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "vvhan",
       "label": "vvHan",
       "code": "VH",
       "file": "vvhan.txt",
-      "entries": 60,
+      "entries": 59,
       "active": true,
-      "last_updated": "2026-09-04T20:07:34.563460+08:00",
+      "last_updated": "2026-09-04T20:44:40.243776+08:00",
       "reused_fallback": false,
       "rotated": false
     },
@@ -91,8 +91,8 @@
       "entries": 15,
       "active": true,
       "last_updated": "2026-09-04T20:07:35.303241+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "uouin",
@@ -102,8 +102,8 @@
       "entries": 40,
       "active": true,
       "last_updated": "2026-09-04T20:07:36.039391+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "nirevil",
@@ -112,7 +112,7 @@
       "file": "nirevil.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-04T20:07:36.331214+08:00",
+      "last_updated": "2026-09-04T20:44:56.762322+08:00",
       "reused_fallback": false,
       "rotated": false
     },
@@ -124,8 +124,8 @@
       "entries": 99,
       "active": true,
       "last_updated": "2026-09-04T20:07:37.170714+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "zhixuanwang",
@@ -135,8 +135,8 @@
       "entries": 2,
       "active": true,
       "last_updated": "2026-09-04T20:07:37.303386+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "s5gy",
@@ -145,7 +145,7 @@
       "file": "s5gy.txt",
       "entries": 311,
       "active": true,
-      "last_updated": "2026-09-04T20:07:44.049494+08:00",
+      "last_updated": "2026-09-04T20:45:03.702680+08:00",
       "reused_fallback": false,
       "rotated": false
     }

@@ -2,8 +2,8 @@ name: Update QNAir
 
 on:
   schedule:
-    # 每 3 小时运行一次（UTC 时间），上游分 3 组轮流实抓
-    - cron: "0 */3 * * *"
+    # 每小时运行一次（错开整点排队高峰），上游分 3 组轮流实抓，3 小时刷完一轮
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       full:
@@ -41,8 +41,9 @@ jobs:
           LUOLI_URL: ${{ secrets.LUOLI_URL }}
           LZJ_URL: ${{ secrets.LZJ_URL }}
           XINYITANG3_URL: ${{ secrets.XINYITANG3_URL }}
-          # 轮换抓取：13 个上游分 3 组，每轮实抓一组，其余沿用缓存
+          # 轮换抓取：13 个上游分 3 组，每小时实抓一组，3 小时完成一轮
           QNAIR_ROTATE_GROUPS: "3"
+          QNAIR_ROTATE_SLOT_HOURS: "1"
           # 手动触发时可勾选 full 强制全部实抓
           QNAIR_FORCE_ALL: ${{ github.event.inputs.full == 'true' && '1' || '0' }}
         run: python scripts/update.py

@@ -30,7 +30,7 @@ BRAND = "QNAir"
 # QNAIR_ROTATE_GROUPS > 0 时，把上游分成 N 组，每轮只实抓其中一组，
 # 其余组沿用缓存数据（24h 内有效），减轻上游接口压力。
 # 组号按 UTC 时间每 ROTATE_SLOT_HOURS 小时轮换一次，与工作流 cron 间隔保持一致。
-ROTATE_SLOT_HOURS = 3
+ROTATE_SLOT_HOURS = int(os.environ.get("QNAIR_ROTATE_SLOT_HOURS") or 1)
 ROTATE_GROUPS = int(os.environ.get("QNAIR_ROTATE_GROUPS") or 0)
 FORCE_ALL = os.environ.get("QNAIR_FORCE_ALL") == "1"
 
