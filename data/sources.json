@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-04T20:45:03.857860+08:00",
-  "generated_compact": "09-04 20:45",
+  "generated_at": "2026-09-04T20:46:29.191017+08:00",
+  "generated_compact": "09-04 20:46",
   "fresh_hours": 24,
-  "total_entries": 868,
+  "total_entries": 871,
   "active_sources": 13,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -77,9 +77,9 @@
       "label": "vvHan",
       "code": "VH",
       "file": "vvhan.txt",
-      "entries": 59,
+      "entries": 60,
       "active": true,
-      "last_updated": "2026-09-04T20:44:40.243776+08:00",
+      "last_updated": "2026-09-04T20:46:28.194821+08:00",
       "reused_fallback": false,
       "rotated": false
     },
@@ -112,7 +112,7 @@
       "file": "nirevil.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-04T20:44:56.762322+08:00",
+      "last_updated": "2026-09-04T20:46:28.397157+08:00",
       "reused_fallback": false,
       "rotated": false
     },
@@ -145,7 +145,7 @@
       "file": "s5gy.txt",
       "entries": 311,
       "active": true,
-      "last_updated": "2026-09-04T20:45:03.702680+08:00",
+      "last_updated": "2026-09-04T20:46:29.157600+08:00",
       "reused_fallback": false,
       "rotated": false
     }
