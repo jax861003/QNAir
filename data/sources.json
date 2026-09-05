@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-06T05:12:58.617060+08:00",
-  "generated_compact": "09-06 05:12",
+  "generated_at": "2026-09-06T06:54:13.358497+08:00",
+  "generated_compact": "09-06 06:54",
   "fresh_hours": 24,
-  "total_entries": 582,
+  "total_entries": 578,
   "active_sources": 8,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -80,19 +80,19 @@
       "entries": 54,
       "active": true,
       "last_updated": "2026-09-06T05:12:56.834592+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "wetest",
       "label": "WeTest",
       "code": "WT",
       "file": "wetest.txt",
-      "entries": 15,
+      "entries": 13,
       "active": true,
-      "last_updated": "2026-09-06T03:01:25.837692+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T06:54:12.501374+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "uouin",
@@ -113,19 +113,19 @@
       "entries": 40,
       "active": true,
       "last_updated": "2026-09-06T05:12:57.323681+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "gslege",
       "label": "Gslege",
       "code": "GS",
       "file": "gslege.txt",
-      "entries": 100,
+      "entries": 99,
       "active": true,
-      "last_updated": "2026-09-06T03:01:26.640384+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T06:54:13.335775+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "zhixuanwang",
@@ -146,8 +146,8 @@
       "entries": 334,
       "active": true,
       "last_updated": "2026-09-06T05:12:58.598725+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     }
   ]
 }
