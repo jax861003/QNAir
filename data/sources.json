@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-05T06:20:40.017232+08:00",
-  "generated_compact": "09-05 06:20",
+  "generated_at": "2026-09-05T08:56:21.490650+08:00",
+  "generated_compact": "09-05 08:56",
   "fresh_hours": 24,
-  "total_entries": 867,
+  "total_entries": 868,
   "active_sources": 13,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -15,7 +15,7 @@
       "active": true,
       "last_updated": "2026-09-04T12:33:00+08:00",
       "reused_fallback": true,
-      "rotated": true
+      "rotated": false
     },
     {
       "name": "cmliu2",
@@ -26,7 +26,7 @@
       "active": true,
       "last_updated": "2026-09-04T13:04:00+08:00",
       "reused_fallback": true,
-      "rotated": false
+      "rotated": true
     },
     {
       "name": "luoli",
@@ -48,7 +48,7 @@
       "active": true,
       "last_updated": "2026-09-04T12:35:00+08:00",
       "reused_fallback": true,
-      "rotated": true
+      "rotated": false
     },
     {
       "name": "mia",
@@ -59,7 +59,7 @@
       "active": true,
       "last_updated": "2026-09-04T12:32:00+08:00",
       "reused_fallback": true,
-      "rotated": false
+      "rotated": true
     },
     {
       "name": "cfyes",
@@ -79,9 +79,9 @@
       "file": "vvhan.txt",
       "entries": 60,
       "active": true,
-      "last_updated": "2026-09-04T20:46:28.194821+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-05T08:56:20.346614+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "wetest",
@@ -91,8 +91,8 @@
       "entries": 12,
       "active": true,
       "last_updated": "2026-09-05T06:20:38.168017+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "uouin",
@@ -112,9 +112,9 @@
       "file": "nirevil.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-04T20:46:28.397157+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-05T08:56:20.544625+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "gslege",
@@ -124,8 +124,8 @@
       "entries": 99,
       "active": true,
       "last_updated": "2026-09-05T06:20:39.987002+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "zhixuanwang",
@@ -145,9 +145,9 @@
       "file": "s5gy.txt",
       "entries": 311,
       "active": true,
-      "last_updated": "2026-09-04T20:46:29.157600+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-05T08:56:21.458398+08:00",
+      "reused_fallback": false,
+      "rotated": false
     }
   ]
 }
