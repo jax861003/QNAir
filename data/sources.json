@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-05T08:56:21.490650+08:00",
-  "generated_compact": "09-05 08:56",
+  "generated_at": "2026-09-05T13:44:14.495889+08:00",
+  "generated_compact": "09-05 13:44",
   "fresh_hours": 24,
-  "total_entries": 868,
-  "active_sources": 13,
+  "total_entries": 545,
+  "active_sources": 8,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
     {
@@ -11,10 +11,10 @@
       "label": "CM",
       "code": "CM",
       "file": "cmliu.txt",
-      "entries": 38,
-      "active": true,
-      "last_updated": "2026-09-04T12:33:00+08:00",
-      "reused_fallback": true,
+      "entries": 0,
+      "active": false,
+      "last_updated": null,
+      "reused_fallback": false,
       "rotated": false
     },
     {
@@ -22,32 +22,32 @@
       "label": "CM 2",
       "code": "CM",
       "file": "cmliu2.txt",
-      "entries": 49,
-      "active": true,
-      "last_updated": "2026-09-04T13:04:00+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "entries": 0,
+      "active": false,
+      "last_updated": null,
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "luoli",
       "label": "洛璃",
       "code": "LL",
       "file": "luoli.txt",
-      "entries": 42,
-      "active": true,
-      "last_updated": "2026-09-04T10:32:00+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "entries": 0,
+      "active": false,
+      "last_updated": null,
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "lzj",
       "label": "辣子鸡",
       "code": "LZ",
       "file": "lzj.txt",
-      "entries": 263,
-      "active": true,
-      "last_updated": "2026-09-04T12:35:00+08:00",
-      "reused_fallback": true,
+      "entries": 0,
+      "active": false,
+      "last_updated": null,
+      "reused_fallback": false,
       "rotated": false
     },
     {
@@ -55,11 +55,11 @@
       "label": "Mia",
       "code": "MIA",
       "file": "mia.txt",
-      "entries": 41,
-      "active": true,
-      "last_updated": "2026-09-04T12:32:00+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "entries": 0,
+      "active": false,
+      "last_updated": null,
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "cfyes",
@@ -68,9 +68,9 @@
       "file": "cfyes.txt",
       "entries": 30,
       "active": true,
-      "last_updated": "2026-09-04T20:07:34.236052+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-05T13:44:11.544380+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "vvhan",
@@ -80,8 +80,8 @@
       "entries": 60,
       "active": true,
       "last_updated": "2026-09-05T08:56:20.346614+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "wetest",
@@ -101,9 +101,9 @@
       "file": "uouin.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-04T20:07:36.039391+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-05T13:44:14.368024+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "nirevil",
@@ -113,8 +113,8 @@
       "entries": 40,
       "active": true,
       "last_updated": "2026-09-05T08:56:20.544625+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "gslege",
@@ -134,9 +134,9 @@
       "file": "zhixuanwang.txt",
       "entries": 2,
       "active": true,
-      "last_updated": "2026-09-04T20:07:37.303386+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-05T13:44:14.467817+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "s5gy",
@@ -146,8 +146,8 @@
       "entries": 311,
       "active": true,
       "last_updated": "2026-09-05T08:56:21.458398+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     }
   ]
 }
