@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-05T21:51:25.181336+08:00",
-  "generated_compact": "09-05 21:51",
+  "generated_at": "2026-09-06T00:49:13.598252+08:00",
+  "generated_compact": "09-06 00:49",
   "fresh_hours": 24,
-  "total_entries": 549,
+  "total_entries": 545,
   "active_sources": 8,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -88,9 +88,9 @@
       "label": "WeTest",
       "code": "WT",
       "file": "wetest.txt",
-      "entries": 15,
+      "entries": 12,
       "active": true,
-      "last_updated": "2026-09-05T21:51:24.709300+08:00",
+      "last_updated": "2026-09-06T00:49:13.132298+08:00",
       "reused_fallback": false,
       "rotated": false
     },
@@ -123,7 +123,7 @@
       "file": "gslege.txt",
       "entries": 99,
       "active": true,
-      "last_updated": "2026-09-05T21:51:25.149508+08:00",
+      "last_updated": "2026-09-06T00:49:13.567113+08:00",
       "reused_fallback": false,
       "rotated": false
     },
