@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-06T21:19:16.008861+08:00",
-  "generated_compact": "09-06 21:19",
+  "generated_at": "2026-09-06T22:18:39.684898+08:00",
+  "generated_compact": "09-06 22:18",
   "fresh_hours": 24,
-  "total_entries": 537,
-  "active_sources": 8,
+  "total_entries": 876,
+  "active_sources": 13,
   "format": "IP:端口#QNAir-简称 | 地区 | 序号",
   "sources": [
     {
@@ -11,45 +11,45 @@
       "label": "CM",
       "code": "CM",
       "path": "cmliu/all.txt",
-      "entries": 38,
-      "active": false,
-      "last_updated": "2026-09-04T20:46:00+08:00"
+      "entries": 32,
+      "active": true,
+      "last_updated": "2026-09-06T22:03:00+08:00"
     },
     {
       "name": "cmliu2",
       "label": "CM 2",
       "code": "CM",
       "path": "cmliu2/all.txt",
-      "entries": 49,
-      "active": false,
-      "last_updated": "2026-09-04T20:07:00+08:00"
+      "entries": 43,
+      "active": true,
+      "last_updated": "2026-09-06T22:04:00+08:00"
     },
     {
       "name": "luoli",
       "label": "洛璃",
       "code": "LL",
       "path": "luoli/all.txt",
-      "entries": 42,
-      "active": false,
-      "last_updated": "2026-09-04T20:07:00+08:00"
+      "entries": 32,
+      "active": true,
+      "last_updated": "2026-09-06T21:33:00+08:00"
     },
     {
       "name": "lzj",
       "label": "辣子鸡",
       "code": "LZ",
       "path": "lzj/all.txt",
-      "entries": 263,
-      "active": false,
-      "last_updated": "2026-09-04T20:46:00+08:00"
+      "entries": 265,
+      "active": true,
+      "last_updated": "2026-09-06T20:34:00+08:00"
     },
     {
       "name": "mia",
       "label": "Mia",
       "code": "MIA",
       "path": "mia/all.txt",
-      "entries": 41,
-      "active": false,
-      "last_updated": "2026-09-04T20:07:00+08:00"
+      "entries": 32,
+      "active": true,
+      "last_updated": "2026-09-06T22:02:00+08:00"
     },
     {
       "name": "cfyes",
@@ -58,7 +58,7 @@
       "path": "cfyes/all.txt",
       "entries": 30,
       "active": true,
-      "last_updated": "2026-09-06T20:56:00+08:00"
+      "last_updated": "2026-09-06T21:19:00+08:00"
     },
     {
       "name": "vvhan",
