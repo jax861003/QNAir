@@ -29,8 +29,6 @@ jobs:
         run: pip install requests cloudscraper beautifulsoup4
 
       - name: Fetch Mia
-        env:
-          XINYITANG3_URL: ${{ secrets.XINYITANG3_URL }}
         run: python scripts/fetch.py mia
 
       - name: Commit

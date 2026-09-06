@@ -46,14 +46,20 @@ CFYES_URL = "https://api.hostmonit.com/get_optimization_ip"
 VVHAN_URL = "https://api.4ce.cn/api/bestCFIP"
 UOUIN_URL = "https://api.uouin.com/cloudflare.html"
 
-# 13 个上游：每个一个文件夹；sub 类型需要配置同名 GitHub Secrets
+# 13 个上游：每个一个文件夹
 # code = 输出模板里的上游简称，如 QNAir-LL | 香港 | 001
+# mirror 类型直接抓源项目公开发布站 bestcf.pages.dev 的同步镜像，无需 Secret
 SOURCES = [
-    {"name": "cmliu",       "label": "CM",      "code": "CM",  "type": "sub", "env": "CMLIU_URL",      "folder": "cmliu"},
-    {"name": "cmliu2",      "label": "CM 2",    "code": "CM",  "type": "sub", "env": "CMLIU2_URL",     "folder": "cmliu2"},
-    {"name": "luoli",       "label": "洛璃",    "code": "LL",  "type": "sub", "env": "LUOLI_URL",      "folder": "luoli"},
-    {"name": "lzj",         "label": "辣子鸡",  "code": "LZ",  "type": "sub", "env": "LZJ_URL",        "folder": "lzj"},
-    {"name": "mia",         "label": "Mia",     "code": "MIA", "type": "sub", "env": "XINYITANG3_URL", "folder": "mia"},
+    {"name": "cmliu",       "label": "CM",      "code": "CM",  "type": "mirror",
+     "url": "https://bestcf.pages.dev/cmliu/all.txt",       "folder": "cmliu"},
+    {"name": "cmliu2",      "label": "CM 2",    "code": "CM",  "type": "mirror",
+     "url": "https://bestcf.pages.dev/cmliu2/all.txt",      "folder": "cmliu2"},
+    {"name": "luoli",       "label": "洛璃",    "code": "LL",  "type": "mirror",
+     "url": "https://bestcf.pages.dev/luoli/all.txt",       "folder": "luoli"},
+    {"name": "lzj",         "label": "辣子鸡",  "code": "LZ",  "type": "mirror",
+     "url": "https://bestcf.pages.dev/lzj/all.txt",         "folder": "lzj"},
+    {"name": "mia",         "label": "Mia",     "code": "MIA", "type": "mirror",
+     "url": "https://bestcf.pages.dev/xinyitang3/ipv4.txt", "folder": "mia"},
     {"name": "cfyes",       "label": "CFYes",   "code": "CFY", "type": "cfyes",       "folder": "cfyes"},
     {"name": "vvhan",       "label": "vvHan",   "code": "VH",  "type": "vvhan",       "folder": "vvhan"},
     {"name": "wetest",      "label": "WeTest",  "code": "WT",  "type": "wetest",      "folder": "wetest"},
@@ -405,6 +411,30 @@ def fetch_sub(src):
     return nodes
 
 
+def fetch_mirror(src):
+    """公开发布镜像：抓社区通用格式文本并解析。
+
+    首行带上游自己的更新时间（如 09-06 21:33），提取出来记到 src["upstream_time"]，
+    写文件时用作首行时间——这样 24h 有效性判断跟随上游的真实更新节奏。
+    头/尾行（含时间戳或 BestCF/pages.dev 字样）由 parse_unified_line 自动跳过。
+    """
+    text = _requests_get(src["url"], 15, 2, {"User-Agent": UA_CLASH})
+    nodes, header_time = [], None
+    for line in text.splitlines():
+        if header_time is None:
+            m = re.search(r"\b(\d{2}-\d{2} \d{2}:\d{2})\b", line)
+            if m:
+                header_time = m.group(1)
+        node = parse_unified_line(line)
+        if node:
+            nodes.append(node)
+    if not nodes:
+        raise RuntimeError("镜像内容解析结果为空")
+    if header_time:
+        src["upstream_time"] = header_time
+    return nodes
+
+
 def fetch_cfyes(_src):
     nodes = []
     line_map = {"CM": "移动", "CU": "联通", "CT": "电信"}
@@ -587,6 +617,7 @@ def fetch_s5gy(_src):
 
 
 FETCHERS = {
+    "mirror": fetch_mirror,
     "sub": fetch_sub,
     "cfyes": fetch_cfyes,
     "vvhan": fetch_vvhan,
@@ -613,12 +644,15 @@ def source_file(src):
     return ROOT / src["folder"] / "all.txt"
 
 
-def write_source_file(src, nodes):
-    """写入该上游文件夹：首行带更新时间，正文统一格式，尾行标注来源"""
+def write_source_file(src, nodes, header_time=None):
+    """写入该上游文件夹：首行带更新时间，正文统一格式，尾行标注来源。
+
+    header_time：上游数据自带的更新时间（mirror 源），缺省用当前北京时间。
+    """
     path = source_file(src)
     path.parent.mkdir(parents=True, exist_ok=True)
     brand = f"{BRAND}-{src['code']}"
-    lines = [f"{brand} | {src['label']} | {bj_compact()}"]
+    lines = [f"{brand} | {src['label']} | {header_time or bj_compact()}"]
     lines += [n.line(src["code"], i) for i, n in enumerate(nodes, 1)]
     lines.append(f"{brand} | {src['label']} | 数据来源公开上游接口")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

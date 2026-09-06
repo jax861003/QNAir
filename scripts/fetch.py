@@ -40,16 +40,21 @@ def main():
             raise RuntimeError("抓取结果为空")
     except Exception as e:
         # 抓取失败：不覆盖旧文件。旧数据 24h 内仍有效，超期由合并流程剔除。
+        # 以非零码退出，让工作流显示失败（红叉），避免"绿勾但没抓到数据"的假象。
         path = source_file(src)
         old = reparse_nodes(path, src["code"]) if path.exists() else []
         if old and is_fresh(file_header_time(path)):
             print(f"[回退] {label}: 抓取失败({e})，保留 {len(old)} 条 24h 内旧数据")
         else:
             print(f"[警告] {label}: 抓取失败({e})，且无 24h 内旧数据，本次跳过")
-        return
+        if "Secret" in str(e):
+            print(f"[提示] 请到仓库 Settings -> Secrets and variables -> Actions "
+                  f"配置 {src['env']}（该上游的抓取地址）")
+        sys.exit(1)
 
-    path = write_source_file(src, nodes)
-    print(f"[OK] {label}: {len(nodes)} 条 -> {src['folder']}/all.txt")
+    path = write_source_file(src, nodes, src.get("upstream_time"))
+    print(f"[OK] {label}: {len(nodes)} 条 -> {src['folder']}/all.txt"
+          + (f"（上游时间 {src['upstream_time']}）" if src.get("upstream_time") else ""))
 
 
 if __name__ == "__main__":

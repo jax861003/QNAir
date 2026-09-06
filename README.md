@@ -63,19 +63,7 @@ QNAir-LL | 洛璃 | 数据来源公开上游接口
    - 输出目录：`/`
 4. 之后不用管。Actions 会持续更新数据，每次提交都会触发 Pages 重新部署
 
-### 可选：订阅来源
-
-有 5 个来源的地址需要自己填，在仓库 Settings → Secrets and variables → Actions 里配置：
-
-| Secret | 来源 | 对应工作流 |
-|---|---|---|
-| CMLIU_URL | CM | cmliu.yml |
-| CMLIU2_URL | CM 2 | cmliu2.yml |
-| LUOLI_URL | 洛璃 | luoli.yml |
-| LZJ_URL | 辣子鸡 | lzj.yml |
-| XINYITANG3_URL | Mia | mia.yml |
-
-不配置也能跑，只是这几个来源没有数据，其余来源不受影响。
+不需要配置任何 Secret——全部 13 个上游都来自公开接口，其中 5 个（CM、CM 2、洛璃、辣子鸡、Mia）抓的是源数据公开发布站 bestcf.pages.dev 的同步镜像，其余 8 个直接抓官方接口。
 
 ## 本地运行
 

@@ -29,8 +29,6 @@ jobs:
         run: pip install requests cloudscraper beautifulsoup4
 
       - name: Fetch 辣子鸡
-        env:
-          LZJ_URL: ${{ secrets.LZJ_URL }}
         run: python scripts/fetch.py lzj
 
       - name: Commit
