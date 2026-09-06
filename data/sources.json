@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-06T06:54:13.358497+08:00",
-  "generated_compact": "09-06 06:54",
+  "generated_at": "2026-09-06T08:55:15.875722+08:00",
+  "generated_compact": "09-06 08:55",
   "fresh_hours": 24,
-  "total_entries": 578,
+  "total_entries": 581,
   "active_sources": 8,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -77,11 +77,11 @@
       "label": "vvHan",
       "code": "VH",
       "file": "vvhan.txt",
-      "entries": 54,
+      "entries": 60,
       "active": true,
-      "last_updated": "2026-09-06T05:12:56.834592+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T08:55:14.129108+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "wetest",
@@ -91,8 +91,8 @@
       "entries": 13,
       "active": true,
       "last_updated": "2026-09-06T06:54:12.501374+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "uouin",
@@ -112,9 +112,9 @@
       "file": "nirevil.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-06T05:12:57.323681+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T08:55:14.439566+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "gslege",
@@ -124,8 +124,8 @@
       "entries": 99,
       "active": true,
       "last_updated": "2026-09-06T06:54:13.335775+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "zhixuanwang",
@@ -145,9 +145,9 @@
       "file": "s5gy.txt",
       "entries": 334,
       "active": true,
-      "last_updated": "2026-09-06T05:12:58.598725+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T08:55:15.852868+08:00",
+      "reused_fallback": false,
+      "rotated": false
     }
   ]
 }
