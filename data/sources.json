@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-06T08:55:15.875722+08:00",
-  "generated_compact": "09-06 08:55",
+  "generated_at": "2026-09-06T13:56:00.376716+08:00",
+  "generated_compact": "09-06 13:56",
   "fresh_hours": 24,
-  "total_entries": 581,
+  "total_entries": 585,
   "active_sources": 8,
   "format": "QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -68,9 +68,9 @@
       "file": "cfyes.txt",
       "entries": 30,
       "active": true,
-      "last_updated": "2026-09-05T13:44:11.544380+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T13:55:59.182670+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "vvhan",
@@ -80,8 +80,8 @@
       "entries": 60,
       "active": true,
       "last_updated": "2026-09-06T08:55:14.129108+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "wetest",
@@ -101,9 +101,9 @@
       "file": "uouin.txt",
       "entries": 40,
       "active": true,
-      "last_updated": "2026-09-05T13:44:14.368024+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T13:56:00.269959+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "nirevil",
@@ -113,8 +113,8 @@
       "entries": 40,
       "active": true,
       "last_updated": "2026-09-06T08:55:14.439566+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     },
     {
       "name": "gslege",
@@ -132,11 +132,11 @@
       "label": "ZhiXuan",
       "code": "ZX",
       "file": "zhixuanwang.txt",
-      "entries": 2,
+      "entries": 1,
       "active": true,
-      "last_updated": "2026-09-05T13:44:14.467817+08:00",
-      "reused_fallback": true,
-      "rotated": true
+      "last_updated": "2026-09-06T13:56:00.342458+08:00",
+      "reused_fallback": false,
+      "rotated": false
     },
     {
       "name": "s5gy",
@@ -146,8 +146,8 @@
       "entries": 334,
       "active": true,
       "last_updated": "2026-09-06T08:55:15.852868+08:00",
-      "reused_fallback": false,
-      "rotated": false
+      "reused_fallback": true,
+      "rotated": true
     }
   ]
 }
