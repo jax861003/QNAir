@@ -147,7 +147,7 @@ fetch('data/sources.json', { cache: 'no-store' })
 		var rest = rows.filter(function(s) { return !s.active; });
 		active.concat(rest).forEach(function(s) { tb.appendChild(buildRow(s)); });
 		if (!rows.length) {
-			tb.innerHTML = '<tr><td colspan="5" class="loading">暂无数据，请先在 Actions 手动触发一次 Update QNAir</td></tr>';
+			tb.innerHTML = '<tr><td colspan="5" class="loading">暂无数据，请在仓库 Actions 中手动触发一次工作流</td></tr>';
 		}
 		document.getElementById('summary').innerHTML =
 			'活跃上游 <b>' + active.length + '</b> / ' + rows.length +

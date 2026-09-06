@@ -1,38 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-QNAir 优选IP 自动更新脚本
-- 抓取各活跃上游的优选 IP 数据
-- 仅保留 24 小时内有更新的上游（活跃筛选）
-- 统一格式输出：IP:端口#QNAir | <地区> | <运营商>（缺省用"未知"填充）
-- 产出 data/QNAir-*.txt、data/raw/*.txt、data/sources.json
+QNAir 共享模块：源定义、抓取器、解析与格式化工具。
+
+目录约定（参考源项目的组织方式）：每个上游一个根目录文件夹，
+数据统一写入 <folder>/all.txt，首行带更新时间，一眼可见。
 """
 
 import base64
 import ipaddress
-import json
 import os
 import re
-import sys
 import urllib.parse
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-RAW_DIR = DATA / "raw"
-STATE_FILE = DATA / "state.json"
 
-FRESH_HOURS = 24          # 上游超过该时长无更新即视为不活跃
+FRESH_HOURS = 24          # 数据超过该时长未更新即视为不活跃，合并时剔除
 BRAND = "QNAir"
-
-# ---- 轮换抓取 ----
-# QNAIR_ROTATE_GROUPS > 0 时，把上游分成 N 组，每轮只实抓其中一组，
-# 其余组沿用缓存数据（24h 内有效），减轻上游接口压力。
-# 组号按 UTC 时间每 ROTATE_SLOT_HOURS 小时轮换一次，与工作流 cron 间隔保持一致。
-ROTATE_SLOT_HOURS = int(os.environ.get("QNAIR_ROTATE_SLOT_HOURS") or 1)
-ROTATE_GROUPS = int(os.environ.get("QNAIR_ROTATE_GROUPS") or 0)
-FORCE_ALL = os.environ.get("QNAIR_FORCE_ALL") == "1"
 
 BJ = timezone(timedelta(hours=8))
 UA_BROWSER = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -60,22 +46,22 @@ CFYES_URL = "https://api.hostmonit.com/get_optimization_ip"
 VVHAN_URL = "https://api.4ce.cn/api/bestCFIP"
 UOUIN_URL = "https://api.uouin.com/cloudflare.html"
 
-# 需要配置 GitHub Secrets 的订阅型上游（缺 Secret 时自动跳过）
+# 13 个上游：每个一个文件夹；sub 类型需要配置同名 GitHub Secrets
 # code = 输出模板里的上游简称，如 QNAir-LL | 香港 | 001
 SOURCES = [
-    {"name": "cmliu",       "label": "CM",      "code": "CM",  "type": "sub", "env": "CMLIU_URL",       "file": "cmliu.txt"},
-    {"name": "cmliu2",      "label": "CM 2",    "code": "CM",  "type": "sub", "env": "CMLIU2_URL",      "file": "cmliu2.txt"},
-    {"name": "luoli",       "label": "洛璃",    "code": "LL",  "type": "sub", "env": "LUOLI_URL",       "file": "luoli.txt"},
-    {"name": "lzj",         "label": "辣子鸡",  "code": "LZ",  "type": "sub", "env": "LZJ_URL",         "file": "lzj.txt"},
-    {"name": "mia",         "label": "Mia",     "code": "MIA", "type": "sub", "env": "XINYITANG3_URL",  "file": "mia.txt"},
-    {"name": "cfyes",       "label": "CFYes",   "code": "CFY", "type": "cfyes",       "file": "cfyes.txt"},
-    {"name": "vvhan",       "label": "vvHan",   "code": "VH",  "type": "vvhan",       "file": "vvhan.txt"},
-    {"name": "wetest",      "label": "WeTest",  "code": "WT",  "type": "wetest",      "file": "wetest.txt"},
-    {"name": "uouin",       "label": "麒麟",    "code": "QL",  "type": "uouin",       "file": "uouin.txt"},
-    {"name": "nirevil",     "label": "NiREvil", "code": "NR",  "type": "nirevil",     "file": "nirevil.txt"},
-    {"name": "gslege",      "label": "Gslege",  "code": "GS",  "type": "gslege",      "file": "gslege.txt"},
-    {"name": "zhixuanwang", "label": "ZhiXuan", "code": "ZX",  "type": "zhixuanwang", "file": "zhixuanwang.txt"},
-    {"name": "s5gy",        "label": "S5公益",  "code": "S5",  "type": "s5gy",        "file": "s5gy.txt"},
+    {"name": "cmliu",       "label": "CM",      "code": "CM",  "type": "sub", "env": "CMLIU_URL",      "folder": "cmliu"},
+    {"name": "cmliu2",      "label": "CM 2",    "code": "CM",  "type": "sub", "env": "CMLIU2_URL",     "folder": "cmliu2"},
+    {"name": "luoli",       "label": "洛璃",    "code": "LL",  "type": "sub", "env": "LUOLI_URL",      "folder": "luoli"},
+    {"name": "lzj",         "label": "辣子鸡",  "code": "LZ",  "type": "sub", "env": "LZJ_URL",        "folder": "lzj"},
+    {"name": "mia",         "label": "Mia",     "code": "MIA", "type": "sub", "env": "XINYITANG3_URL", "folder": "mia"},
+    {"name": "cfyes",       "label": "CFYes",   "code": "CFY", "type": "cfyes",       "folder": "cfyes"},
+    {"name": "vvhan",       "label": "vvHan",   "code": "VH",  "type": "vvhan",       "folder": "vvhan"},
+    {"name": "wetest",      "label": "WeTest",  "code": "WT",  "type": "wetest",      "folder": "wetest"},
+    {"name": "uouin",       "label": "麒麟",    "code": "QL",  "type": "uouin",       "folder": "uouin"},
+    {"name": "nirevil",     "label": "NiREvil", "code": "NR",  "type": "nirevil",     "folder": "nirevil"},
+    {"name": "gslege",      "label": "Gslege",  "code": "GS",  "type": "gslege",      "folder": "gslege"},
+    {"name": "zhixuanwang", "label": "ZhiXuan", "code": "ZX",  "type": "zhixuanwang", "folder": "zhixuanwang"},
+    {"name": "s5gy",        "label": "S5公益",  "code": "S5",  "type": "s5gy",        "folder": "s5gy"},
 ]
 
 # ---------------------------------------------------------------- 时间工具
@@ -102,6 +88,29 @@ def parse_embedded_time(text):
                         int(m.group(3)), int(m.group(4)), tzinfo=BJ)
     except ValueError:
         return None
+
+
+def file_header_time(path):
+    """读取数据文件首行里的更新时间"""
+    try:
+        first = (path if isinstance(path, Path) else Path(path)
+                 ).read_text(encoding="utf-8").splitlines()[0]
+        return parse_embedded_time(first)
+    except Exception:
+        return None
+
+
+def is_fresh(t):
+    """文件头时间是否在 FRESH_HOURS 内"""
+    if not t:
+        return False
+    if isinstance(t, str):
+        t = parse_embedded_time(t)
+    if not t:
+        return False
+    if t.tzinfo is None:
+        t = t.replace(tzinfo=BJ)
+    return now_bj() - t <= timedelta(hours=FRESH_HOURS)
 
 
 # ---------------------------------------------------------------- 地区/运营商归一化
@@ -149,7 +158,7 @@ REGION_CODE = {
     "NZ": "新西兰",
 }
 
-# Cloudflare Colocode（机场代码）→ 地区
+# Cloudflare 机场代码 → 地区
 COLO_MAP = {
     "HKG": "香港", "SIN": "新加坡", "NRT": "日本", "KIX": "日本",
     "HND": "日本", "ICN": "韩国", "LAX": "美国", "SJC": "美国",
@@ -203,7 +212,7 @@ def normalize_region(text):
     if match_isp(s):
         return None
 
-    # 中文地区名（长词优先，避免"印度"截胡"印尼"类问题）
+    # 中文地区名（长词优先）
     for name in sorted(REGION_NAMES, key=len, reverse=True):
         if name in s:
             return name
@@ -296,7 +305,7 @@ def parse_unified_line(line, default_code=None):
         return None
     ip, port, rest = m.group(1), m.group(2), m.group(3)
     segs = [x.strip() for x in rest.split("|")]
-    # 跳过头/尾广告行（含时间戳、分享语等）
+    # 跳过头/尾行（含时间戳、分享语）
     joined = " ".join(segs)
     if re.search(r"\d{2}-\d{2} \d{2}:\d{2}", joined):
         return None
@@ -304,11 +313,23 @@ def parse_unified_line(line, default_code=None):
         return None
     if not valid_ip(ip):
         return None
-    # 第一个片段是品牌名（可能带上游简称），其余识别地区
     bm = BRAND_RE.match(segs[0])
     code = (bm.group(1) if bm else None) or default_code
     region, isp = classify_segs(segs[1:])
     return Node(ip.strip("[]"), port, region, isp, code)
+
+
+def reparse_nodes(path, default_code=None):
+    """从数据文件中重新解析节点"""
+    nodes = []
+    try:
+        for line in Path(path).read_text(encoding="utf-8").splitlines():
+            node = parse_unified_line(line, default_code)
+            if node:
+                nodes.append(node)
+    except Exception:
+        pass
+    return nodes
 
 
 # ---------------------------------------------------------------- HTTP
@@ -400,6 +421,7 @@ def fetch_cfyes(_src):
 
 
 def fetch_vvhan(_src):
+    import json
     res = json.loads(_requests_get(VVHAN_URL, 15, 2, {"User-Agent": UA_BROWSER}))
     if not res.get("success"):
         raise RuntimeError("vvHan API 返回失败")
@@ -466,6 +488,7 @@ def fetch_uouin(_src):
 
 
 def fetch_nirevil(_src):
+    import json
     nodes = []
     for url in NIREVIL_URLS:
         try:
@@ -576,173 +599,27 @@ FETCHERS = {
 }
 
 
-# ---------------------------------------------------------------- 状态与新鲜度
+# ---------------------------------------------------------------- 路径与输出
 
-def load_state():
-    try:
-        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-
-def save_state(state):
-    STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2),
-                          encoding="utf-8")
+def get_source(name):
+    for s in SOURCES:
+        if s["name"] == name:
+            return s
+    return None
 
 
-def is_fresh(iso_time):
-    if not iso_time:
-        return False
-    try:
-        t = datetime.fromisoformat(iso_time)
-    except ValueError:
-        return False
-    if t.tzinfo is None:
-        t = t.replace(tzinfo=BJ)
-    return now_bj() - t <= timedelta(hours=FRESH_HOURS)
+def source_file(src):
+    """该上游的数据文件：<folder>/all.txt"""
+    return ROOT / src["folder"] / "all.txt"
 
 
-def reparse_nodes(path, default_code=None):
-    """从已发布的明细文件中重新解析节点（轮换沿用 / 抓取失败回退）"""
-    nodes = []
-    try:
-        for line in path.read_text(encoding="utf-8").splitlines():
-            node = parse_unified_line(line, default_code)
-            if node:
-                nodes.append(node)
-    except Exception:
-        pass
-    return nodes
-
-
-# ---------------------------------------------------------------- 输出
-
-def write_source_file(path, label, code, nodes):
-    """发布文件：IP:端口#QNAir-简称 | 地区 | 序号，序号每个上游从 001 开始"""
-    brand = f"{BRAND}-{code}" if code else BRAND
-    lines = [f"{brand} | {label} | {bj_compact()}"]
-    lines += [n.line(code, i) for i, n in enumerate(nodes, 1)]
-    lines.append(f"{brand} | {label} | 数据来源公开上游接口")
+def write_source_file(src, nodes):
+    """写入该上游文件夹：首行带更新时间，正文统一格式，尾行标注来源"""
+    path = source_file(src)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    brand = f"{BRAND}-{src['code']}"
+    lines = [f"{brand} | {src['label']} | {bj_compact()}"]
+    lines += [n.line(src["code"], i) for i, n in enumerate(nodes, 1)]
+    lines.append(f"{brand} | {src['label']} | 数据来源公开上游接口")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-
-# ---------------------------------------------------------------- 合并输出
-
-def merge_and_write(report, state):
-    """合并所有活跃上游 → 统一格式输出 + sources.json"""
-    # ---- 合并去重（按来源优先级顺序），保留每条数据归属的上游简称 ----
-    seen, merged = set(), []
-    for item in report:
-        if not item["entries"]:
-            continue
-        for node in reparse_nodes(RAW_DIR / item["file"], item["code"]):
-            if node.key in seen:
-                continue
-            seen.add(node.key)
-            merged.append((item["code"], node))
-
-    # ---- 全量输出：序号 001 起连续编号 ----
-    lines = [node.line(code, i) for i, (code, node) in enumerate(merged, 1)]
-    (DATA / "QNAir-all.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-    # 清理旧版拆分文件
-    for old in ("QNAir-mini.txt", "QNAir-yidong.txt", "QNAir-dianxin.txt",
-                "QNAir-liantong.txt", "QNAir-weizhi.txt"):
-        p = DATA / old
-        if p.exists():
-            p.unlink()
-
-    # ---- 元数据 ----
-    active = [r for r in report if r["entries"]]
-    meta = {
-        "generated_at": bj_iso(),
-        "generated_compact": bj_compact(),
-        "fresh_hours": FRESH_HOURS,
-        "total_entries": len(merged),
-        "active_sources": len(active),
-        "format": "QNAir-简称 | 地区 | 序号",
-        "sources": [
-            {
-                "name": r["name"], "label": r["label"], "code": r["code"],
-                "file": r["file"],
-                "entries": r["entries"],
-                "active": bool(r["entries"]),
-                "last_updated": state.get(r["name"], {}).get("last_ok"),
-                "reused_fallback": r["reused"],
-                "rotated": r.get("rotated", False),
-            }
-            for r in report
-        ],
-    }
-    (DATA / "sources.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2),
-                                       encoding="utf-8")
-    return merged, active
-
-
-# ---------------------------------------------------------------- 主流程
-
-def current_group():
-    """按 UTC 时间每 ROTATE_SLOT_HOURS 小时轮换一次分组序号"""
-    slot = int(datetime.now(timezone.utc).timestamp() // (ROTATE_SLOT_HOURS * 3600))
-    return slot % ROTATE_GROUPS
-
-
-def main():
-    RAW_DIR.mkdir(parents=True, exist_ok=True)
-    state = load_state()
-    report = []
-
-    group = None
-    if ROTATE_GROUPS > 0 and not FORCE_ALL:
-        group = current_group()
-        print(f"[轮换] 本次实抓第 {group} 组（共 {ROTATE_GROUPS} 组），其余沿用缓存")
-
-    for i, src in enumerate(SOURCES):
-        name, label, code = src["name"], src["label"], src["code"]
-        raw_path = RAW_DIR / src["file"]
-        nodes, reused, rotated = [], False, False
-
-        # 轮换机制：不在本组的上游跳过实抓，直接用 24h 内的缓存
-        if group is not None and i % ROTATE_GROUPS != group:
-            cached = reparse_nodes(raw_path, code) if raw_path.exists() else []
-            if cached and is_fresh(state.get(name, {}).get("last_ok")):
-                nodes, reused, rotated = cached, True, True
-                print(f"[轮换] {label}: 本轮休息，沿用缓存 {len(nodes)} 条")
-
-        if not nodes:
-            try:
-                nodes = FETCHERS[src["type"]](src)
-                if not nodes:
-                    raise RuntimeError("抓取结果为空")
-                state[name] = {"last_ok": bj_iso(), "entries": len(nodes)}
-                print(f"[OK] {label}: 抓取 {len(nodes)} 条")
-            except Exception as e:
-                # 抓取失败：若 24h 内有成功记录则回退使用旧数据
-                if is_fresh(state.get(name, {}).get("last_ok")) and raw_path.exists():
-                    nodes = reparse_nodes(raw_path, code)
-                    reused = bool(nodes)
-                if reused:
-                    print(f"[回退] {label}: 抓取失败({e})，沿用 {FRESH_HOURS}h 内旧数据 {len(nodes)} 条")
-                else:
-                    state.pop(name, None)
-                    print(f"[跳过] {label}: 不活跃或抓取失败({e})，已剔除")
-                    if raw_path.exists():
-                        raw_path.unlink()
-        if nodes and not rotated:
-            write_source_file(raw_path, label, code, nodes)
-        report.append({"name": name, "label": label, "code": code,
-                       "file": src["file"],
-                       "entries": len(nodes), "reused": reused,
-                       "rotated": rotated})
-
-    save_state(state)
-    merged, active = merge_and_write(report, state)
-
-    print(f"\n[完成] 活跃上游 {len(active)}/{len(SOURCES)}，"
-          f"合并去重后 {len(merged)} 条 → data/QNAir-all.txt")
-    if not merged:
-        sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()
+    return path

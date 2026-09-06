@@ -1,0 +1,42 @@
+name: Merge QNAir
+
+on:
+  schedule:
+    # 每 3 小时合并一次（在各上游抓取工作流之后运行）
+    - cron: "55 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qnair-merge
+  cancel-in-progress: true
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Merge all sources
+        run: python scripts/merge.py
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "数据无变化，跳过提交。"
+          else
+            git commit -m "QNAir 数据合并 $(TZ='Asia/Shanghai' date +'%m-%d %H:%M')"
+            git pull --rebase origin main
+            git push
+          fi

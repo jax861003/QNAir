@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-09-06T20:59:19.845486+08:00",
+  "generated_compact": "09-06 20:59",
+  "fresh_hours": 24,
+  "total_entries": 537,
+  "active_sources": 8,
+  "format": "IP:端口#QNAir-简称 | 地区 | 序号",
+  "sources": [
+    {
+      "name": "cmliu",
+      "label": "CM",
+      "code": "CM",
+      "path": "cmliu/all.txt",
+      "entries": 38,
+      "active": false,
+      "last_updated": "2026-09-04T20:46:00+08:00"
+    },
+    {
+      "name": "cmliu2",
+      "label": "CM 2",
+      "code": "CM",
+      "path": "cmliu2/all.txt",
+      "entries": 49,
+      "active": false,
+      "last_updated": "2026-09-04T20:07:00+08:00"
+    },
+    {
+      "name": "luoli",
+      "label": "洛璃",
+      "code": "LL",
+      "path": "luoli/all.txt",
+      "entries": 42,
+      "active": false,
+      "last_updated": "2026-09-04T20:07:00+08:00"
+    },
+    {
+      "name": "lzj",
+      "label": "辣子鸡",
+      "code": "LZ",
+      "path": "lzj/all.txt",
+      "entries": 263,
+      "active": false,
+      "last_updated": "2026-09-04T20:46:00+08:00"
+    },
+    {
+      "name": "mia",
+      "label": "Mia",
+      "code": "MIA",
+      "path": "mia/all.txt",
+      "entries": 41,
+      "active": false,
+      "last_updated": "2026-09-04T20:07:00+08:00"
+    },
+    {
+      "name": "cfyes",
+      "label": "CFYes",
+      "code": "CFY",
+      "path": "cfyes/all.txt",
+      "entries": 30,
+      "active": true,
+      "last_updated": "2026-09-06T20:56:00+08:00"
+    },
+    {
+      "name": "vvhan",
+      "label": "vvHan",
+      "code": "VH",
+      "path": "vvhan/all.txt",
+      "entries": 60,
+      "active": true,
+      "last_updated": "2026-09-06T20:56:00+08:00"
+    },
+    {
+      "name": "wetest",
+      "label": "WeTest",
+      "code": "WT",
+      "path": "wetest/all.txt",
+      "entries": 15,
+      "active": true,
+      "last_updated": "2026-09-06T20:56:00+08:00"
+    },
+    {
+      "name": "uouin",
+      "label": "麒麟",
+      "code": "QL",
+      "path": "uouin/all.txt",
+      "entries": 40,
+      "active": true,
+      "last_updated": "2026-09-06T20:56:00+08:00"
+    },
+    {
+      "name": "nirevil",
+      "label": "NiREvil",
+      "code": "NR",
+      "path": "nirevil/all.txt",
+      "entries": 40,
+      "active": true,
+      "last_updated": "2026-09-06T20:57:00+08:00"
+    },
+    {
+      "name": "gslege",
+      "label": "Gslege",
+      "code": "GS",
+      "path": "gslege/all.txt",
+      "entries": 79,
+      "active": true,
+      "last_updated": "2026-09-06T20:58:00+08:00"
+    },
+    {
+      "name": "zhixuanwang",
+      "label": "ZhiXuan",
+      "code": "ZX",
+      "path": "zhixuanwang/all.txt",
+      "entries": 2,
+      "active": true,
+      "last_updated": "2026-09-06T20:58:00+08:00"
+    },
+    {
+      "name": "s5gy",
+      "label": "S5公益",
+      "code": "S5",
+      "path": "s5gy/all.txt",
+      "entries": 321,
+      "active": true,
+      "last_updated": "2026-09-06T20:58:00+08:00"
+    }
+  ]
+}
