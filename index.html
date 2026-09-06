@@ -124,7 +124,7 @@ window.copy = function(btn, path) {
 };
 
 function buildRow(s) {
-	var path = 'data/raw/' + s.file;
+	var path = s.path || s.code + '/all.txt';
 	var tr = document.createElement('tr');
 	if (!s.active) tr.className = 'off';
 	tr.innerHTML =
@@ -137,7 +137,7 @@ function buildRow(s) {
 	return tr;
 }
 
-fetch('data/sources.json', { cache: 'no-store' })
+fetch('sources.json', { cache: 'no-store' })
 	.then(function(r) { return r.json(); })
 	.then(function(meta) {
 		var tb = document.getElementById('tb');
