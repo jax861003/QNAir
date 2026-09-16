@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-17T05:46:07.959629+08:00",
-  "generated_compact": "09-17 05:46",
+  "generated_at": "2026-09-17T07:54:58.537036+08:00",
+  "generated_compact": "09-17 07:54",
   "fresh_hours": 24,
-  "total_entries": 1182,
+  "total_entries": 1171,
   "active_sources": 13,
   "format": "IP:端口#QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -47,9 +47,9 @@
       "label": "Mia",
       "code": "MIA",
       "path": "mia/all.txt",
-      "entries": 55,
+      "entries": 53,
       "active": true,
-      "last_updated": "2026-09-17T05:32:00+08:00"
+      "last_updated": "2026-09-17T07:32:00+08:00"
     },
     {
       "name": "cfyes",
@@ -58,7 +58,7 @@
       "path": "cfyes/all.txt",
       "entries": 30,
       "active": true,
-      "last_updated": "2026-09-17T05:40:00+08:00"
+      "last_updated": "2026-09-17T07:49:00+08:00"
     },
     {
       "name": "vvhan",
@@ -67,7 +67,7 @@
       "path": "vvhan/all.txt",
       "entries": 60,
       "active": true,
-      "last_updated": "2026-09-17T05:44:00+08:00"
+      "last_updated": "2026-09-17T07:53:00+08:00"
     },
     {
       "name": "wetest",
