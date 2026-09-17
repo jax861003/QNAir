@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-18T05:48:56.379254+08:00",
-  "generated_compact": "09-18 05:48",
+  "generated_at": "2026-09-18T07:45:39.918138+08:00",
+  "generated_compact": "09-18 07:45",
   "fresh_hours": 24,
-  "total_entries": 1167,
+  "total_entries": 1177,
   "active_sources": 13,
   "format": "IP:端口#QNAir-简称 | 地区 | 序号",
   "sources": [
@@ -58,7 +58,7 @@
       "path": "cfyes/all.txt",
       "entries": 30,
       "active": true,
-      "last_updated": "2026-09-18T05:43:00+08:00"
+      "last_updated": "2026-09-18T07:41:00+08:00"
     },
     {
       "name": "vvhan",
